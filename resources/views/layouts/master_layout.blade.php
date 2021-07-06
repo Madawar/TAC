@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="en" data-theme="bumblebee">
+<html lang="en" data-theme="fantasy">
 
 <head>
     <meta charset="utf-8">
@@ -17,10 +17,11 @@
 <body class="">
 
     @include('layouts.header')
-    <div class="md:flex flex-col md:flex-row md:min-h-screen  w-full">
-        @include('layouts.sidebar')
+
+
         <div class=" md:flex flex-col md:flex-row   w-full" id="main-app">
-            <div class="w-full md:w-3/4">
+            @include('layouts.sidebar')
+            <div class="w-full overflow-x-auto xl:w-4/6">
                 <div class="heading border-b border-gray-100 border-opacity-90 filter md:drop-shadow-sm bg-gray-50">
                     @section('main-heading')
 
@@ -30,7 +31,7 @@
                 @yield('content')
 
             </div>
-            <div class="w-1/4 md:visible md:border-l md:border-gray-100 md:border-opacity-90 invisible  ">
+            <div class="flex-auto xl:block md:border-l md:border-gray-100 md:border-opacity-90 hidden  ">
                 <div class="heading border-b border-gray-100 border-opacity-90 bg-gray-50 filter md:drop-shadow-sm">
                     @section('secondary-heading')
 
@@ -41,7 +42,7 @@
             </div>
         </div>
 
-    </div>
+
     <div class="footer border-t border-gray-100 border-opacity-90">
         <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
             <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">

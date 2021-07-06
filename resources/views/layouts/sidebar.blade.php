@@ -8,7 +8,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Str;
 ?>
 <div @click.away="open = false"
-    class="flex flex-col w-full md:w-64 text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0  border-r  border-gray-100 border-opacity-90 "
+    class="    flex-shrink-0  border-r  border-gray-100 border-opacity-90 "
     x-data="{ open: false }">
     <div class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-between">
         <a href="#"

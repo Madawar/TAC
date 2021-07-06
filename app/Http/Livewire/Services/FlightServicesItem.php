@@ -13,11 +13,12 @@ class FlightServicesItem extends Component
     public $serviceUom;
     public $service;
     public $uom;
+    public $key;
 
-    public function mount($service)
+    public function mount($service,$key)
     {
         $this->service = new FlightService();
-
+        $this->key = $key;
     }
 
     protected $rules = [
@@ -25,14 +26,18 @@ class FlightServicesItem extends Component
         'service.qty' => 'required_if:uom,QTY|numeric',
         'service.end_time' => 'required_if:uom,TIME-INTERVAL|date_format:H:i|lte:service.start_time',
         'service.start_time' => 'required_if:uom,TIME-INTERVAL|date_format:H:i',
-        'uom'=>'present',
-        'service.uom'=>'present'
+        'uom' => 'present',
+        'service.uom' => 'present'
 
     ];
 
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
+    }
+    public function removeItem($key)
+    {
+        $this->emit('remove_item', $key);
     }
 
     public function render()
@@ -45,6 +50,5 @@ class FlightServicesItem extends Component
     public function getUom()
     {
         $this->serviceUom =   $this->serviceList->where('id', $this->service->service_list_id)->first()->uom;
-
     }
 }

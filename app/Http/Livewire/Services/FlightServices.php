@@ -10,7 +10,12 @@ class FlightServices extends Component
 {
     public $serviceItems = null;
 
+    protected $listeners = ['remove_item' => 'removeItem'];
 
+    public function removeItem($key)
+    {
+        unset($this->serviceItems[$key]);
+    }
     public function mount()
     {
         $this->addService();

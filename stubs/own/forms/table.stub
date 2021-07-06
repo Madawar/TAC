@@ -85,7 +85,7 @@ use Illuminate\Support\Str;
                         </button>
                     @endif
                     <a href="{{ route('header_x.edit', ['header_x' => $header_x->id]) }}"
-                        class="btn btn-outline btn-square btn-xs">
+                        class="btn  btn-square btn-xs btn-error">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -9,7 +9,7 @@
         </div>
         <div class="divide-y divide-gray-300">
         @foreach ($serviceItems as $key => $service)
-            @livewire('services.flight-services-item',['service' => $service],key($key))
+            @livewire('services.flight-services-item',['service' => $service,'key'=>$key],key($key))
         @endforeach
         </div>
 
