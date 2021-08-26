@@ -24,7 +24,18 @@ class Flight extends Model
     {
         return $this->belongsTo(Carrier::class);
     }
-/*
+
+    public function getFlightNumberAttribute()
+    {
+        $date = \Carbon\Carbon::parse($this->flight_date)->format('jMy');
+
+        return "{$this->carrier->carrier_code} {$this->flight_no} - $date";
+    }
+    public function services()
+    {
+        return $this->hasMany(FlightService::class);
+    }
+    /*
 
 
     public function user()

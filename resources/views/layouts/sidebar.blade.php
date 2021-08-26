@@ -26,7 +26,7 @@ use Illuminate\Support\Str;
             </svg>
         </button>
     </div>
-    <nav :class="{'block': open, 'hidden': !open}" class="flex-grow md:block px-1 pb-4 md:pb-0 md:overflow-y-auto  ">
+    <nav :class="{'block': open, 'hidden': !open}" class="flex-grow {{$breakpoint}}:block px-1 pb-4 md:pb-0 {{$breakpoint}}:overflow-y-auto  ">
 
         <ul class="menu  w-full ">
             <li>

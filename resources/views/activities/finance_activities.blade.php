@@ -1,4 +1,4 @@
-@extends('layouts.master_layout')
+@extends('layouts.master_mobile')
 <?php use Illuminate\Support\Str; ?>
 @section('main-heading')
     <h1
@@ -15,7 +15,9 @@
 @section('content')
     <div class="p-2" >
 
-        @livewire('flight-list')
+        @livewire('finance.finance-activity')
+
+
 
     </div>
 @endsection
