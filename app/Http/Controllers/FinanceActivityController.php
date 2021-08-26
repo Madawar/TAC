@@ -14,7 +14,8 @@ class FinanceActivityController extends Controller
      */
     public function index(Request $request)
     {
-        return view('activities.finance_activities');
+        $flight = null;
+        return view('activities.finance_activities')->with(compact('flight'));
     }
 
     /**
@@ -62,9 +63,10 @@ class FinanceActivityController extends Controller
      * @param  \App\Models\Flight  $flight
      * @return \Illuminate\Http\Response
      */
-    public function edit(Flight $flight)
+    public function edit( $flight)
     {
-        return view('flight.create_flight')->with(compact('flight'));
+        $flight = Flight::with('carrier', 'services')->find($flight);
+        return view('activities.finance_activities')->with(compact('flight'));
     }
 
     /**
@@ -92,6 +94,6 @@ class FinanceActivityController extends Controller
      */
     public function destroy(Flight $flight)
     {
-           return $flight->delete();
+        return $flight->delete();
     }
 }

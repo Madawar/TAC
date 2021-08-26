@@ -15,7 +15,7 @@
 @section('content')
     <div class="p-2" >
 
-        @livewire('finance.finance-activity')
+        @livewire('finance.finance-activity',['flight'=>$flight])
 
 
 
