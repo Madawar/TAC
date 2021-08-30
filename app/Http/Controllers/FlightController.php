@@ -59,7 +59,8 @@ class FlightController extends Controller
     {
         $flight = Flight::with('carrier', 'services')->find($flight);
         // dd($flight);
-        $image = Storage::url('signatures/' . $flight->signature);
+        $image = url('/storage/signatures/' . $flight->signature);
+
         $pdf = PDF::setOptions(['dpi' => 150, 'defaultPaperSize' => 'a4', 'isRemoteEnabled' => true])
             ->loadView('reports.charge_sheet', compact('flight', 'image'));
         return $pdf->download('invoice.pdf');
