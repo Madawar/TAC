@@ -170,11 +170,12 @@
                     {{ $flight->signature_name }}
 
                 </td>
-                <td style="width: 300px; height: 90px; font-weight: bold;">
-                    <div style="width: 720px; height: 500px; min-height: 500px;">
+                <td style="width: 300px; height: 90px; vertical-align: top; text-align: left;font-weight: bold;">
+                    Signature<br />
+
                         <img src="{{ url('/storage/signatures/' . $flight->signature) }}"
-                            style="width:200px; height:auto;" />
-                    </div>
+                            style="width:auto; height:auto;" />
+
                 </td>
 
             </tr>
