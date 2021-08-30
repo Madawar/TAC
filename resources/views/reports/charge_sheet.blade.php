@@ -13,7 +13,7 @@
             border-collapse: collapse !important;
         }
 
-        img {
+        .logo{
             position: fixed;
             top: -40px;
             left: 0px;
@@ -40,7 +40,7 @@
 </head>
 <body>
 
-<img src="{{url('/logo.jpg')}}" style="width:200px; height:auto;"/>
+<img class="logo" src="{{url('/logo.jpg')}}" style="width:200px; height:auto;"/>
 <div style="float:right;">
 <b>Transglobal Building<br/>
 Cargo Road, Freight Terminal<br/>
@@ -224,7 +224,7 @@ P.O Box 661 - 00521 Nairobi - Kenya</b>
     </tr>
     </tbody>
 </table>
-<img src="{{url('/storage/signatures/'.$flight->signature)}}" style="width:200px; height:auto;"/>
+
 </body>
 </html>
 
