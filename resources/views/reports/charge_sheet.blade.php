@@ -165,7 +165,8 @@ P.O Box 661 - 00521 Nairobi - Kenya</b>
         </td>
         <td style="width: 300px; height: 90px; vertical-align: top; text-align: left;font-weight: bold;">
             Signature<br/>
-            <img src="{{$image}}" />
+            {{url('/storage/signatures/'.$flight->signature)}}
+            <img src="{{url('/storage/signatures/'.$flight->signature)}}" style="width:200px; height:auto;"/>
         </td>
 
     </tr>
