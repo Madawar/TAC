@@ -157,7 +157,7 @@
 
     </table>
     <br />
-    <img src="{{ url('/storage/signatures/' . $flight->signature) }}" style="width:200px; height:auto;" />
+
     <table class="table card-table table-vcenter text-nowrap table-bordered">
 
         <tbody>
@@ -173,21 +173,12 @@
                 <td style="width: 300px; height: 90px; vertical-align: top; text-align: left;font-weight: bold;">
                     Signature<br />
 
-                        <img src="{{ url('/storage/signatures/' . $flight->signature) }}" style="width:auto; height:auto;" />
+                        <img src="{{ url('/storage/signatures/' . $flight->signature) }}" style="max-width:auto; height:auto;" />
 
                 </td>
 
             </tr>
-            <tr>
-                <td style="width: 300px; height: 90px; vertical-align: top; text-align: left;font-weight: bold;">
-                    Staff ID Number
 
-                </td>
-                <td style="width: 300px; height: 90px; vertical-align: top; text-align: left;font-weight: bold;">
-                    Position
-                </td>
-
-            </tr>
             <tr>
                 <td colspan="2" style="font-weight: bold; background: #f6fbff;">GHA</td>
             </tr>
@@ -201,16 +192,7 @@
                 </td>
 
             </tr>
-            <tr>
-                <td style="width: 300px; height: 90px; vertical-align: top; text-align: left;font-weight: bold;">
-                    Staff ID Number
 
-                </td>
-                <td style="width: 300px; height: 90px; vertical-align: top; text-align: left;font-weight: bold;">
-                    Position
-                </td>
-
-            </tr>
         </tbody>
     </table>
     <br />
