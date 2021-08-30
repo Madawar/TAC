@@ -58,12 +58,12 @@ class FlightController extends Controller
     public function show($flight)
     {
         $flight = Flight::with('carrier', 'services')->find($flight);
-        // dd($flight);
-        $image = url('/storage/signatures/' . $flight->signature);
 
+/*
         $pdf = PDF::setOptions(['dpi' => 150, 'defaultPaperSize' => 'a4', 'isRemoteEnabled' => true])
             ->loadView('reports.charge_sheet', compact('flight', 'image'));
         return $pdf->download('invoice.pdf');
+        */
         return view('flight.view_flight')->with(compact('flight'));
     }
 

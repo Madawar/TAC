@@ -63,7 +63,7 @@ class FinanceActivity extends Component
         $this->flight->update(array('signature' => $filename, 'signature_name' => $this->signature_name, 'pdf' => $pdf_name));
         $flight = Flight::with('carrier', 'services')->find($this->flight->id);
         $pdf = PDF::setOptions(['dpi' => 150, 'defaultPaperSize' => 'a4', 'isRemoteEnabled' => true])
-            ->loadView('reports.charge_sheet', compact('flight', 'image'));
+            ->loadView('reports.charge_sheet', compact('flight'));
         $pdf->save(storage_path('app/public/pdf/' . $pdf_name));
     }
 }
