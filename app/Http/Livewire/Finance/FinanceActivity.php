@@ -7,6 +7,7 @@ use Livewire\Component;
 use Image;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use PDF;
 use Illuminate\Support\Facades\Storage;
 
 class FinanceActivity extends Component
@@ -57,7 +58,12 @@ class FinanceActivity extends Component
         $encoded_image = explode(",", $data_uri)[1];
         $decoded_image = base64_decode($encoded_image);
         $filename = Str::random(40) . '.png';
+        $pdf_name = Str::random(40) . '.pdf';
         Image::make($decoded_image)->save(storage_path('app/public/signatures/' . $filename));
-        $this->flight->update(array('signature' => $filename, 'signature_name' => $this->signature_name));
+        $this->flight->update(array('signature' => $filename, 'signature_name' => $this->signature_name, 'pdf' => $pdf_name));
+        $flight = Flight::with('carrier', 'services')->find($this->flight->id);
+        $pdf = PDF::setOptions(['dpi' => 150, 'defaultPaperSize' => 'a4', 'isRemoteEnabled' => true])
+            ->loadView('reports.charge_sheet', compact('flight', 'image'));
+        $pdf->save(storage_path('app/public/pdf/' . $pdf_name));
     }
 }

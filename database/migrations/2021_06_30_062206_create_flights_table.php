@@ -31,6 +31,7 @@ class CreateFlightsTable extends Migration
             $table->string('remarks')->nullable();
             $table->string('serial')->nullable();
             $table->string('signature')->nullable();
+            $table->string('pdf')->nullable();
             $table->string('signature_name')->nullable();
             $table->boolean('loaded')->nullable();
             $table->softDeletes();
