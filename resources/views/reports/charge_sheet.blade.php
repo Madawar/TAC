@@ -173,8 +173,7 @@
                 <td style="width: 300px; height: 90px; vertical-align: top; text-align: left;font-weight: bold;">
                     Signature<br />
 
-                        <img src="{{ url('/storage/signatures/' . $flight->signature) }}"
-                            style="width:auto; height:auto;" />
+                        <img src="{{ url('/storage/signatures/' . $flight->signature) }}" style="width:auto; height:auto;" />
 
                 </td>
 
