@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carrier;
 use App\Models\Flight;
 use Illuminate\Http\Request;
 use PDF;
@@ -27,8 +28,8 @@ class FlightController extends Controller
     public function create(Request $request)
     {
         $flight = null;
-
-        return view('flight.create_flight')->with(compact('flight'));
+        $carriers = Carrier::all()->pluck('id','carrier_code');
+        return view('flight.create_flight')->with(compact('flight','carriers'));
     }
 
     /**
@@ -53,8 +54,13 @@ class FlightController extends Controller
      * @param  \App\Models\Flight  $flight
      * @return \Illuminate\Http\Response
      */
-    public function show(Flight $flight)
+    public function show($flight)
     {
+        $flight = Flight::with('carrier','services')->find($flight);
+       // dd($flight);
+        $pdf = PDF::setOptions(['dpi' => 150, 'defaultPaperSize' => 'a4', 'isRemoteEnabled' => true])
+        ->loadView('reports.charge_sheet', compact('flight'));
+        return $pdf->download('invoice.pdf');
         return view('flight.view_flight')->with(compact('flight'));
     }
 
@@ -66,7 +72,8 @@ class FlightController extends Controller
      */
     public function edit(Flight $flight)
     {
-        return view('flight.create_flight')->with(compact('flight'));
+        $carriers = Carrier::all()->pluck('carrier_code','id');
+        return view('flight.create_flight')->with(compact('flight','carriers'));
     }
 
     /**

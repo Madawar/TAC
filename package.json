@@ -23,9 +23,9 @@
         "vue-template-compiler": "^2.6.14"
     },
     "dependencies": {
-
         "daisyui": "^1.6.0",
         "flatpickr": "^4.6.9",
+        "signature_pad": "^3.0.0-beta.4",
         "vue": "^2.6.14"
     }
 }

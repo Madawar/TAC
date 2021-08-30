@@ -30,6 +30,8 @@ class CreateFlightsTable extends Migration
             $table->integer('delay_code')->nullable();
             $table->string('remarks')->nullable();
             $table->string('serial')->nullable();
+            $table->string('signature')->nullable();
+            $table->string('signature_name')->nullable();
             $table->boolean('loaded')->nullable();
             $table->softDeletes();
             $table->foreignId('flight_schedule_id')->nullable()->constrained()->onUpdate('cascade')->onDelete('cascade');

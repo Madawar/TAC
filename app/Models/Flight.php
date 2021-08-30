@@ -13,6 +13,11 @@ class Flight extends Model
     use SoftDeletes;
 
     use SearchTrait;
+
+    protected $casts = [
+
+        'signature' => 'array', // Will convarted to (Array)
+    ];
     protected $guarded = [
         'id',
         'created_at',

@@ -35,7 +35,7 @@
 
         <div class="flex-auto">
 
-            <x-forms.select label="Carrier" placeholder="Carrier" name="carrier_id" :options="[]"
+            <x-forms.select label="Carrier" placeholder="Carrier" name="carrier_id" :options="$carriers"
                 model="{!! $flight ?? null !!}" />
 
         </div>
@@ -54,7 +54,7 @@
 
         <div class="flex-auto">
 
-            <x-forms.select label="Turnaround Type" placeholder="Turnaround Type" name="turnaround_type" :options="[]"
+            <x-forms.select label="Turnaround Type" placeholder="Turnaround Type" name="turnaround_type" :options="array('Passenger Transit'=>'Passenger Transit','Freight Transit'=>'Freight Transit','Freighter Turnaround'=>'Freighter Turnaround','Passenger Turnaround'=>'Passenger Turnaround')"
                 model="{!! $flight ?? null !!}" />
 
         </div>
@@ -63,7 +63,7 @@
     </div>
     <div class="flex flex-col md:flex-row p-2 md:space-x-3 w-full">
         <div class="flex-auto">
-            <x-forms.select label="Flight Handling Type" placeholder="Flight Handling Type" name="flight_type" :options="[]"
+            <x-forms.select label="Flight Handling Type" placeholder="Flight Handling Type" name="flight_type" :options="array('F'=>'Freighter','P'=>'Passenger')"
                 model="{!! $flight ?? null !!}" />
         </div>
         <div class="flex-auto">

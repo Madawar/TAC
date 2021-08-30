@@ -13,7 +13,7 @@ const mix = require('laravel-mix');
 
  mix.js('resources/js/app.js', 'public/js')
  .vue()
- .combine(['./node_modules/plotly.js-dist/plotly.js','resources/js/plugins/flatpickr.js'],'public/js/plugins.js')
+ .combine(['resources/js/plugins/signature_pad.min.js','./node_modules/plotly.js-dist/plotly.js','resources/js/plugins/flatpickr.js'],'public/js/plugins.js')
  .postCss('resources/css/app.css', 'public/css', [
     // './node_modules/tippy.js/dist/tippy.css',
     // require('tippy.js'),
