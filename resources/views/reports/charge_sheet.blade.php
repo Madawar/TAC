@@ -151,7 +151,7 @@ P.O Box 661 - 00521 Nairobi - Kenya</b>
 
 </table>
 <br/>
-<img src="{{url('/storage/signatures/'.$flight->signature)}}" style="width:200px; height:auto;"/>
+
 <table class="table card-table table-vcenter text-nowrap table-bordered">
 
     <tbody>
@@ -224,6 +224,7 @@ P.O Box 661 - 00521 Nairobi - Kenya</b>
     </tr>
     </tbody>
 </table>
+<img src="{{url('/storage/signatures/'.$flight->signature)}}" style="width:200px; height:auto;"/>
 </body>
 </html>
 
