@@ -6,6 +6,7 @@ use App\Models\Carrier;
 use App\Models\Flight;
 use Illuminate\Http\Request;
 use PDF;
+use Illuminate\Support\Facades\Storage;
 
 class FlightController extends Controller
 {
@@ -28,8 +29,8 @@ class FlightController extends Controller
     public function create(Request $request)
     {
         $flight = null;
-        $carriers = Carrier::all()->pluck('id','carrier_code');
-        return view('flight.create_flight')->with(compact('flight','carriers'));
+        $carriers = Carrier::all()->pluck('id', 'carrier_code');
+        return view('flight.create_flight')->with(compact('flight', 'carriers'));
     }
 
     /**
@@ -56,10 +57,11 @@ class FlightController extends Controller
      */
     public function show($flight)
     {
-        $flight = Flight::with('carrier','services')->find($flight);
-       // dd($flight);
+        $flight = Flight::with('carrier', 'services')->find($flight);
+        // dd($flight);
+        $image = Storage::url('signatures/' . $flight->signature);
         $pdf = PDF::setOptions(['dpi' => 150, 'defaultPaperSize' => 'a4', 'isRemoteEnabled' => true])
-        ->loadView('reports.charge_sheet', compact('flight'));
+            ->loadView('reports.charge_sheet', compact('flight', 'image'));
         return $pdf->download('invoice.pdf');
         return view('flight.view_flight')->with(compact('flight'));
     }
@@ -72,8 +74,8 @@ class FlightController extends Controller
      */
     public function edit(Flight $flight)
     {
-        $carriers = Carrier::all()->pluck('carrier_code','id');
-        return view('flight.create_flight')->with(compact('flight','carriers'));
+        $carriers = Carrier::all()->pluck('carrier_code', 'id');
+        return view('flight.create_flight')->with(compact('flight', 'carriers'));
     }
 
     /**
@@ -101,6 +103,6 @@ class FlightController extends Controller
      */
     public function destroy(Flight $flight)
     {
-           return $flight->delete();
+        return $flight->delete();
     }
 }

@@ -1,3 +1,4 @@
+
 <div>
     <div class="border border-gray-300 m-1 shadow-inner mb-2">
         <div
@@ -8,6 +9,7 @@
 
         </div>
         <div class="divide-y divide-gray-300 p-2">
+
             @if ($flight == null)
                 <x-forms.select label="Choose a flight to work on" placeholder="Choose a flight" name="flight_id"
                     :options="$flights" wire:change="loadFlight" wire:model="flight_id" />
@@ -128,6 +130,7 @@
                 </div>
 
             </div>
+            <img src="{{ $image}}" />
             <canvas id="canvas" class="canvas bg-yellow-400 shadow-sm">
 
             </canvas>

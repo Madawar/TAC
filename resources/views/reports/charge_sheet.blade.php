@@ -159,11 +159,13 @@ P.O Box 661 - 00521 Nairobi - Kenya</b>
     </tr>
     <tr style="height: 300px;">
         <td style="width: 300px; height: 90px; vertical-align: top; text-align: left;font-weight: bold;">
-            Airline Representative
+            Airline Representative<br/>
+            {{$flight->signature_name}}
 
         </td>
         <td style="width: 300px; height: 90px; vertical-align: top; text-align: left;font-weight: bold;">
-            Signature
+            Signature<br/>
+            <img src="{{ $image}}" />
         </td>
 
     </tr>
