@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\FlightCompleted;
 use App\Models\Carrier;
 use App\Models\Flight;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use PDF;
 use Illuminate\Support\Facades\Storage;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class FlightController extends Controller
 {
@@ -29,7 +33,7 @@ class FlightController extends Controller
     public function create(Request $request)
     {
         $flight = null;
-        $carriers = Carrier::all()->pluck('id', 'carrier_code');
+        $carriers = Carrier::all()->pluck('carrier_code', 'id');
         return view('flight.create_flight')->with(compact('flight', 'carriers'));
     }
 
@@ -45,8 +49,11 @@ class FlightController extends Controller
             'arrival' => 'required'
 
         ]);
-        $flight = Flight::create($data);
-        return redirect()->route('flight.show', ['id' => $flight->id]);
+
+
+        $flight = Flight::create($request->all());
+        //   $this->recreateSerials($flight);
+        return redirect()->route('flight.show', ['flight' => $flight->id]);
     }
 
     /**
@@ -55,16 +62,28 @@ class FlightController extends Controller
      * @param  \App\Models\Flight  $flight
      * @return \Illuminate\Http\Response
      */
-    public function show($flight)
+    public function show(Request $request, $flight)
     {
         $flight = Flight::with('carrier', 'services')->find($flight);
+        $pdf = Storage::url('pdf/' . $flight->pdf);
+        $carrier_email = $flight->carrier->carrier_email;
+        if ($request->has('email')) {
+            if ($request->mm != null and $request->mm != '') {
+                $to = [$carrier_email, $request->mm];
+            } else {
+                $to = [$carrier_email];
+            }
 
-/*
-        $pdf = PDF::setOptions(['dpi' => 150, 'defaultPaperSize' => 'a4', 'isRemoteEnabled' => true])
-            ->loadView('reports.charge_sheet', compact('flight', 'image'));
-        return $pdf->download('invoice.pdf');
-        */
-        return view('flight.view_flight')->with(compact('flight'));
+            Mail::to($to)->send(new FlightCompleted($flight));
+        }
+        if ($flight->pdf != null) {
+            $pdf = PDF::setOptions(['dpi' => 150, 'defaultPaperSize' => 'a4', 'isRemoteEnabled' => true])
+                ->loadView('reports.charge_sheet', compact('flight'));
+            $pdf->save(storage_path('app/public/pdf/' . $flight->pdf));
+        }
+
+
+        return view('flight.view_flight')->with(compact('flight', 'pdf'));
     }
 
     /**
@@ -105,5 +124,24 @@ class FlightController extends Controller
     public function destroy(Flight $flight)
     {
         return $flight->delete();
+    }
+
+    public function recreateSerials($flight)
+    {
+        $month = Carbon::parse($flight->flight_date);
+        $startOfMonth = $month->copy()->startOfMonth();
+        $endOfMonth = $month->copy()->endOfMonth();
+
+        $flights = Flight::where('flight_date', '>=', $startOfMonth)
+            ->where('flight_date', '<=', $endOfMonth)
+            ->where('flight_type', $flight->flight_type)
+            ->where('carrier_id', $flight->carrier_id)
+            ->withTrashed()
+            ->orderBy('created_at', 'asc')
+            ->get();
+        $next_serail = $flights->count() + 1;
+        $sheetNo = $month->format('Ym') . '/' . $flight->carrier->carrier_code . '/' . $flight->flight_type . '/' . str_pad($next_serail, 4, "0", STR_PAD_LEFT);
+        $flight->serial = $sheetNo;
+        $flight->save();
     }
 }

@@ -82,5 +82,6 @@ class FlightServicesItem extends Component
         } else {
             $this->service = FlightService::create($this->service->toArray());
         }
+        $this->emit('addedService');
     }
 }

@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\SearchTrait;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class Flight extends Model
 {
@@ -24,7 +27,23 @@ class Flight extends Model
         'updated_at',
         'password',
     ];
-
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $month = Carbon::parse($model->flight_date);
+            $serial = $month->format('Ym') . '/' . $model->carrier->carrier_code . '/' . $model->flight_type . '/';
+            $model->serial = '';
+            $model->pdf = Str::random(40) . '.pdf';
+            $cc = Counter::firstOrCreate([
+                'month' => $month->month,
+                'year' => $month->year,
+                'carrier_id'=>$model->carrier_id
+            ]);
+            $cc->increment('serial');
+            $model->serial = $serial.str_pad($cc->serial + 1, 4, "0", STR_PAD_LEFT);
+        });
+    }
     public function carrier()
     {
         return $this->belongsTo(Carrier::class);

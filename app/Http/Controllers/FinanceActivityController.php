@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Flight;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FinanceActivityController extends Controller
 {
@@ -26,7 +27,6 @@ class FinanceActivityController extends Controller
     public function create(Request $request)
     {
         $flight = null;
-
         return view('flight.create_flight')->with(compact('flight'));
     }
 
@@ -63,10 +63,15 @@ class FinanceActivityController extends Controller
      * @param  \App\Models\Flight  $flight
      * @return \Illuminate\Http\Response
      */
-    public function edit( $flight)
+    public function edit($flight)
     {
         $flight = Flight::with('carrier', 'services')->find($flight);
-        return view('activities.finance_activities')->with(compact('flight'));
+        if ($flight->signature != null) {
+            $image = Storage::url('signatures/' . $flight->signature);
+        } else {
+            $image = null;
+        }
+        return view('activities.finance_activities')->with(compact('flight', 'image'));
     }
 
     /**

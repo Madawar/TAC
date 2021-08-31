@@ -1,4 +1,3 @@
-
 <div>
     <div class="border border-gray-300 m-1 shadow-inner mb-2">
         <div
@@ -67,7 +66,7 @@
             @endif
         </div>
 
-        <div class="">
+        <div class="___class_+?25___">
             <div class="flex justify-center ">
                 <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-red-500 mt-2" wire:loading></div>
 
@@ -76,43 +75,43 @@
         </div>
     </div>
     <div class="card text-center shadow-sm">
-        <div class="card-body">
-            <h2 class="card-title">Flight Charge Details</h2>
-            @if ($flight != null)
-                @livewire('services.flight-services',['flight'=>$flight])
 
-                <div class="overflow-x-auto">
-                    <table class="table w-full table-zebra">
-                        <thead>
+        <h2 class="card-title">Flight Charge Details</h2>
+        @if ($flight != null)
+            @livewire('services.flight-services',['flight'=>$flight])
+
+            <div class="overflow-x-auto">
+                <table class="table w-full table-zebra">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Service</th>
+                            <th>Quantity</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($flight->services as $key => $service)
                             <tr>
-                                <th>#</th>
-                                <th>Service</th>
-                                <th>Quantity</th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
+                                <th>{{ $loop->index + 1 }}</th>
+                                <th class="text-red-900">{{ $service->service }}</th>
+                                <td>{{ $service->qty }}</td>
+                                <td>{{ $service->start_time }}</td>
+                                <td>{{ $service->end_time }}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($flight->services as $key => $service)
-                                <tr>
-                                    <th>{{ $loop->index + 1 }}</th>
-                                    <th class="text-red-900">{{ $service->service }}</th>
-                                    <td>{{ $service->qty }}</td>
-                                    <td>{{ $service->start_time }}</td>
-                                    <td>{{ $service->end_time }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
 
 
 
 
-            @else
-                <div class="text-center">Please Choose A Flight</div>
-            @endif
-        </div>
+        @else
+            <div class="text-center">Please Choose A Flight</div>
+        @endif
+
     </div>
 
 
@@ -120,6 +119,7 @@
     <div class="card text-center shadow-2xl mt-10">
         <div class="card-body">
             <h2 class="card-title">Airline Representative Signature</h2>
+
             <div class="mb-4">
                 <div class="form-control">
                     <label class="label">
@@ -130,8 +130,10 @@
                 </div>
 
             </div>
-            <img src="{{ $image}}" />
-            <canvas id="canvas" class="canvas bg-yellow-400 shadow-sm">
+            @if ($image)
+                <img src="{{ $image }}" class="object-contain w-32" />
+            @endif
+            <canvas id="canvas" class="canvas bg-yellow-400 shadow-sm w-full">
 
             </canvas>
             @if ($flight != null)

@@ -17,6 +17,10 @@ class FlightServices extends Component
 
     public function removeItem($key)
     {
+
+        if($this->serviceItems[$key]->exists()){
+            $this->serviceItems[$key]->delete();
+        }
         unset($this->serviceItems[$key]);
     }
     public function reloadFlight($flight)
@@ -47,6 +51,7 @@ class FlightServices extends Component
     {
         return view('livewire.services.flight-services');
     }
+
 
     public function addService()
     {

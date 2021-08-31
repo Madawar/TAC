@@ -44,7 +44,7 @@
                 model="{!! $flight ?? null !!}" />
         </div>
         <div class="flex-auto">
-            <x-forms.select label="Aircraft Type" placeholder="Aircraft Type" name="aircraft_type" :options="[]"
+            <x-forms.select label="Aircraft Type" placeholder="Aircraft Type" name="aircraft_type" :options="array(''=>'','CRJ'=>'CRJ','737-800'=>'737-800','A350-900'=>'A350-900','FOKKER 27F'=>'FOKKER 27F','DC-9F'=>'DC-9F','B727F'=>'B727F','B767F'=>'B767F','B787'=>'B787','B777-300'=>'B777-300','B777-200'=>'B777-200','A380-800'=>'A380-800','B777F'=>'B777F')"
                 model="{!! $flight ?? null !!}" />
 
         </div>
@@ -58,12 +58,15 @@
                 model="{!! $flight ?? null !!}" />
 
         </div>
-
+        <div class="flex-auto">
+            <x-forms.select label="Flight Handling Type" placeholder="Flight Handling Type" name="flight_type" :options="array('F'=>'Freighter','P'=>'Passenger')"
+                model="{!! $flight ?? null !!}" />
+        </div>
 
     </div>
     <div class="flex flex-col md:flex-row p-2 md:space-x-3 w-full">
         <div class="flex-auto">
-            <x-forms.select label="Flight Handling Type" placeholder="Flight Handling Type" name="flight_type" :options="array('F'=>'Freighter','P'=>'Passenger')"
+            <x-forms.input label="Flight Date" placeholder="Flight Date" name="flight_date" class="dateonly"
                 model="{!! $flight ?? null !!}" />
         </div>
         <div class="flex-auto">
@@ -164,6 +167,10 @@ ff
                 flatpickr(".date", {
                   //  defaultDate: "{{ Carbon\Carbon::today()->format('Y-m-d') }}"
                   enableTime: true,
+                });
+                flatpickr(".dateonly", {
+                  //  defaultDate: "{{ Carbon\Carbon::today()->format('Y-m-d') }}"
+                  enableTime: false,
                 });
             },
             data: {
