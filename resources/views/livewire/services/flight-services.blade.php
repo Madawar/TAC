@@ -20,10 +20,10 @@
 
         <div class="">
             <div class="flex justify-center ">
-                <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-red-500 mt-2" wire:loading></div>
-                <button class="btn btn-circle m-1" wire:click="addService">
+
+                <button class="btn btn-circle m-1" wire:click="addService" wire:target="addService" wire:loading.class="loading">
                     <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-4 h-4 stroke-current md:w-6 md:h-6"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor" wire:loading.remove wire:target="addService">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>

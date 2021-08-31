@@ -46,13 +46,20 @@ class FlightController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'arrival' => 'required'
+            'arrival' => 'required',
+            'STD'=>'required',
+            'STA'=>'required',
+            'flight_date'=>'required',
+            'turnaround_type'=>'required',
+            'aircraft_type'=>'required',
+            'flight_type'=>'required',
+            'destination'=>'required',
+            'origin'=>'required',
+            'flight_no'=>'required',
+            'carrier_id'=>'required',
 
         ]);
-
-
         $flight = Flight::create($request->all());
-        //   $this->recreateSerials($flight);
         return redirect()->route('flight.show', ['flight' => $flight->id]);
     }
 
@@ -108,10 +115,19 @@ class FlightController extends Controller
     public function update(Request $request, Flight $flight)
     {
         $data = $request->validate([
-            'title' => '',
-            'body' => '',
+            'arrival' => 'required',
+            'STD'=>'required',
+            'STA'=>'required',
+            'flight_date'=>'required',
+            'turnaround_type'=>'required',
+            'aircraft_type'=>'required',
+            'flight_type'=>'required',
+            'destination'=>'required',
+            'origin'=>'required',
+            'flight_no'=>'required',
+            'carrier_id'=>'required',
         ]);
-        Flight::find($flight->id)->update($data);
+        Flight::find($flight->id)->update($request->all());
         return redirect()->route('flight.show', ['id' => $flight->id]);
     }
 
@@ -126,22 +142,5 @@ class FlightController extends Controller
         return $flight->delete();
     }
 
-    public function recreateSerials($flight)
-    {
-        $month = Carbon::parse($flight->flight_date);
-        $startOfMonth = $month->copy()->startOfMonth();
-        $endOfMonth = $month->copy()->endOfMonth();
 
-        $flights = Flight::where('flight_date', '>=', $startOfMonth)
-            ->where('flight_date', '<=', $endOfMonth)
-            ->where('flight_type', $flight->flight_type)
-            ->where('carrier_id', $flight->carrier_id)
-            ->withTrashed()
-            ->orderBy('created_at', 'asc')
-            ->get();
-        $next_serail = $flights->count() + 1;
-        $sheetNo = $month->format('Ym') . '/' . $flight->carrier->carrier_code . '/' . $flight->flight_type . '/' . str_pad($next_serail, 4, "0", STR_PAD_LEFT);
-        $flight->serial = $sheetNo;
-        $flight->save();
-    }
 }

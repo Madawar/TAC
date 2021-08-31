@@ -60,19 +60,13 @@
 
 
                 <div class="flex flex-col justify-center items-center p-4">
-                    <button wire:click="resetFlight" class="btn btn-primary "> Choose another Flight</button>
+                    <button wire:click="resetFlight" wire:target="resetFlight" wire:loading.class="loading" class="btn btn-primary "> Choose another Flight</button>
                 </div>
 
             @endif
         </div>
 
-        <div class="___class_+?25___">
-            <div class="flex justify-center ">
-                <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-red-500 mt-2" wire:loading></div>
 
-            </div>
-
-        </div>
     </div>
     <div class="card text-center shadow-sm">
 
@@ -143,7 +137,7 @@
                         <button wire:click="$emit('clear')" class="btn btn-primary"> Clear </button>
                     </div>
                     <div class="flex-auto">
-                        <button wire:click="$emit('save')" class="btn btn-primary"> Save and Complete </button>
+                        <button wire:click="$emit('save')" class="btn btn-primary" wire:target="signatureSaved" wire:loading.class="loading" > Save and Complete </button>
                     </div>
 
                 </div>
