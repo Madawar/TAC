@@ -143,7 +143,7 @@
                         <button wire:click="$emit('clear')" class="btn btn-primary"> Clear </button>
                     </div>
                     <div class="flex-auto">
-                        <button wire:click="$emit('save')" class="btn btn-primary"> Save </button>
+                        <button wire:click="$emit('save')" class="btn btn-primary"> Save and Complete </button>
                     </div>
 
                 </div>

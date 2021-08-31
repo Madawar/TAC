@@ -125,7 +125,7 @@ use Illuminate\Support\Str;
             <tr style="height: 300px;">
                 <td class=""
                     style="width: 300px; height: 80px; vertical-align: top; text-align: justify;font-weight: bold;">
-                    1.) {{ $flight->turnaroundType }}
+                    1.) {{ $flight->turnaround_type }}
 
                 </td>
             </tr>
@@ -136,9 +136,9 @@ use Illuminate\Support\Str;
                 <td class=""
                     style="width: 300px; height: 80px; vertical-align: top; text-align: justify;font-weight: bold;">
                     @foreach ($flight->services as $incidental)
-                        <b>{{ $loop->index + 1 }}.)</b> {{ $incidental->incidentalService }}
-                        @if ($incidental->start != '' || $incidental->start != null)
-                            - {{ $incidental->start }} {{ $incidental->end }} ,{{ $incidental->remarks }}
+                        <b>{{ $loop->index + 1 }}.)</b> {{ $incidental->service }}
+                        @if ($incidental->start_time != '' || $incidental->start_time != null)
+                            - {{ $incidental->start_time }} {{ $incidental->end_time }} ,{{ $incidental->remarks }}
                         @else
                             - {{ $incidental->qty }}
                             @if ((int) $incidental->qty > 0)
