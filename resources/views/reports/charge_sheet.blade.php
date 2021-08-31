@@ -1,5 +1,7 @@
 <html>
-
+<?php
+use Illuminate\Support\Str;
+?>
 <head>
     <link rel="stylesheet" href="{{ url('css/bundle.css') }}" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ url('css/dashboard.css') }}" type="text/css" media="all" />
