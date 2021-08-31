@@ -142,7 +142,7 @@ use Illuminate\Support\Str;
                         @else
                             - {{ $incidental->qty }}
                             @if ((int) $incidental->qty > 0)
-                                ,{{ str_plural($incidental->remarks) }}
+                                ,{{ $incidental->remarks }}
                             @else
                                 ,{{ $incidental->remarks }}
                             @endif
