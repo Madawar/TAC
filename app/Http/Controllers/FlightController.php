@@ -77,9 +77,9 @@ class FlightController extends Controller
             Mail::to($to)->send(new FlightCompleted($flight));
         }
         if ($flight->pdf != null) {
-            $pdf = PDF::setOptions(['dpi' => 150, 'defaultPaperSize' => 'a4', 'isRemoteEnabled' => true])
+            $pdf_doc = PDF::setOptions(['dpi' => 150, 'defaultPaperSize' => 'a4', 'isRemoteEnabled' => true])
                 ->loadView('reports.charge_sheet', compact('flight'));
-            $pdf->save(storage_path('app/public/pdf/' . $flight->pdf));
+            $pdf_doc->save(storage_path('app/public/pdf/' . $flight->pdf));
         }
 
 
