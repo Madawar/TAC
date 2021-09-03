@@ -17,27 +17,50 @@
     </div>
 
     @if ($serviceUom == 'TIME-INTERVAL')
-        <div class="flex-auto mb-1 md:mb-0"  wire:ignore>
+        <div class="flex-auto mb-1 md:mb-0"  >
 
-            <input type="text" placeholder="Start Time" wire:ignore wire:change="save" x-data wire:model="service.start_time" x-init="flatpickr($refs.input,{
-                        enableTime: true,
-                        noCalendar: true,
-                        dateFormat: 'H:i',
-                    })" x-ref="input"
+            <input type="text" placeholder="Start Time" wire:ignore  x-data wire:model="service.start_time"
+                    x-init="() => {
+
+                        instance = flatpickr($refs.input,{
+                            enableTime: true,
+                            noCalendar: true,
+                            dateFormat: 'H:i',
+                            onChange: function(dateObj, dateStr) {
+                                console.log('start Saving');
+                                @this.call('updateDate', 'start_time',dateStr)
+                            }
+                        });
+
+                    }"
+                    x-ref="input"
+
 
                 class=" px-3 py-3 placeholder-gray-400 text-gray-600 relative bg-white bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:ring w-full" />
 
 
+
+
         </div>
-        <div class="flex-auto mb-1 md:mb-0"  wire:ignore>
-            <input type="text" placeholder="End Time" wire:ignore x-data wire:model="service.end_time" wire:change="save" x-init="flatpickr($refs.input2,{
+        <div class="flex-auto mb-1 md:mb-0"  >
+            <input type="text" placeholder="Start Time" wire:ignore  x-data wire:model="service.end_time"
+            x-init="() => {
+
+                instance = flatpickr($refs.input,{
                     enableTime: true,
                     noCalendar: true,
                     dateFormat: 'H:i',
-                })" x-ref="input2"
+                    onChange: function(dateObj, dateStr) {
+                        console.log('start Saving');
+                        @this.call('updateDate', 'end_time',dateStr)
+                    }
+                });
 
-                class="date_start px-3 py-3 placeholder-gray-400 text-gray-600 relative bg-white bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:ring w-full" />
+            }"
+            x-ref="input"
 
+
+        class=" px-3 py-3 placeholder-gray-400 text-gray-600 relative bg-white bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:ring w-full" />
         </div>
 
     @endif

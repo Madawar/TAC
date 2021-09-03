@@ -32,7 +32,6 @@ class FlightServicesItem extends Component
             $this->service->end_time = null;
             $this->service->remarks = null;
             $this->service->flight_id = $flight->id;
-
         }
         $this->key = $key;
         $this->flight = $flight;
@@ -69,16 +68,23 @@ class FlightServicesItem extends Component
     {
         $this->serviceUom = $this->serviceList->where('id', $this->service->service_list_id)->first()->uom;
         $this->service->service = $this->serviceList->where('id', $this->service->service_list_id)->first()->description;
-       // $this->service->uom = $this->serviceUom;
+        // $this->service->uom = $this->serviceUom;
     }
 
-
+    public function updateDate($field,$date)
+    {
+        if ($this->service->id) {
+            $this->service->$field = $date;
+            $this->service->save();
+        }
+    }
 
     public function save()
     {
-
-
+        //
+        //
         if ($this->service->id) {
+            dd($this->service);
             $this->service->save();
         } else {
             $this->service = FlightService::create($this->service->toArray());
