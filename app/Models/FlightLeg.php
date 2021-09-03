@@ -11,7 +11,7 @@ class FlightLeg extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
+    protected $connection = "mysql";
     protected $guarded = [
         'id',
         'created_at',

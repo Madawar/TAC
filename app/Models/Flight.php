@@ -14,7 +14,7 @@ class Flight extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
+    protected $connection = "mysql";
     use SearchTrait;
 
     protected $casts = [
