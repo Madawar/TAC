@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        return view('view_user.users')->with(compact('users'));
+        return view('user.view_users');
     }
 
     /**

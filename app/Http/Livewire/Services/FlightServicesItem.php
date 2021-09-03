@@ -77,6 +77,7 @@ class FlightServicesItem extends Component
     public function save()
     {
 
+
         if ($this->service->id) {
             $this->service->save();
         } else {

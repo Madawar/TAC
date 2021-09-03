@@ -29,7 +29,7 @@ class CreateFlightsTable extends Migration
             $table->dateTime('STD');
             $table->integer('delay_code')->nullable();
             $table->string('remarks')->nullable();
-            $table->string('serial')->nullable();
+            $table->string('serial')->unique()->nullable();
             $table->string('signature')->nullable();
             $table->string('pdf')->nullable();
             $table->string('signature_name')->nullable();

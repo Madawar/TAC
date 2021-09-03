@@ -19,7 +19,7 @@
     @if ($serviceUom == 'TIME-INTERVAL')
         <div class="flex-auto mb-1 md:mb-0"  wire:ignore>
 
-            <input type="text" placeholder="Start Time" wire:change="save" x-data wire:model="service.start_time" x-init="flatpickr($refs.input,{
+            <input type="text" placeholder="Start Time" wire:ignore wire:change="save" x-data wire:model="service.start_time" x-init="flatpickr($refs.input,{
                         enableTime: true,
                         noCalendar: true,
                         dateFormat: 'H:i',
@@ -30,7 +30,7 @@
 
         </div>
         <div class="flex-auto mb-1 md:mb-0"  wire:ignore>
-            <input type="text" placeholder="End Time" x-data wire:model="service.end_time" wire:change="save" x-init="flatpickr($refs.input2,{
+            <input type="text" placeholder="End Time" wire:ignore x-data wire:model="service.end_time" wire:change="save" x-init="flatpickr($refs.input2,{
                     enableTime: true,
                     noCalendar: true,
                     dateFormat: 'H:i',
