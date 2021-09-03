@@ -76,6 +76,7 @@ class FlightServicesItem extends Component
         if ($this->service->id) {
             $this->service->$field = $date;
             $this->service->save();
+            $this->emit('addedService');
         }
     }
 
