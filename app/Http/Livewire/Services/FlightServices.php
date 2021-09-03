@@ -22,6 +22,7 @@ class FlightServices extends Component
             $this->serviceItems[$key]->delete();
         }
         unset($this->serviceItems[$key]);
+        $this->emit('addedService');
     }
     public function reloadFlight($flight)
     {
