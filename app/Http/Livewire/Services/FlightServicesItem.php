@@ -85,7 +85,7 @@ class FlightServicesItem extends Component
         //
         //
         if ($this->service->id) {
-            dd($this->service);
+           // dd($this->service);
             $this->service->save();
         } else {
             $this->service = FlightService::create($this->service->toArray());
