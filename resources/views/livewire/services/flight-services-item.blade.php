@@ -17,7 +17,7 @@
     </div>
 
     @if ($serviceUom == 'TIME-INTERVAL')
-        <div class="flex-auto mb-1 md:mb-0"  >
+        <div class="flex-auto mb-1 md:mb-0"  wire:ignore>
 
             <input type="text" placeholder="Start Time" wire:ignore  x-data wire:model="service.start_time"
                     x-init="() => {
@@ -42,7 +42,7 @@
 
 
         </div>
-        <div class="flex-auto mb-1 md:mb-0"  >
+        <div class="flex-auto mb-1 md:mb-0" wire:ignore >
             <input type="text" placeholder="Start Time" wire:ignore  x-data wire:model="service.end_time"
             x-init="() => {
 
