@@ -71,13 +71,15 @@ class FlightServicesItem extends Component
         // $this->service->uom = $this->serviceUom;
     }
 
-    public function updateDate($field,$date)
+    public function updateDate($field, $date)
     {
+
         if ($this->service->id) {
             $this->service->$field = $date;
             $this->service->save();
             $this->emit('addedService');
         }
+        $this->save();
     }
 
     public function save()
@@ -85,7 +87,7 @@ class FlightServicesItem extends Component
         //
         //
         if ($this->service->id) {
-           // dd($this->service);
+            // dd($this->service);
             $this->service->save();
         } else {
             $this->service = FlightService::create($this->service->toArray());
