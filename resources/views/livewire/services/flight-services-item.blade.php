@@ -72,9 +72,9 @@
     @endif
 
     <div class="flex-none">
-        <button class="btn btn-block md:btn-circle btn-sm btn-error mt-2 shadow-sm" wire:target="removeItem,save" wire:loading.class="loading" wire:click="removeItem({{$key}})")>
+        <button class="btn btn-block md:btn-circle btn-sm btn-error mt-2 shadow-sm" wire:target="removeItem, save" wire:loading.class="loading" wire:click="removeItem({{$key}})")>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                class="inline-block w-4 h-4 stroke-current md:w-4 md:h-4" wire:loading.remove wire:target="removeItem,save">
+                class="inline-block w-4 h-4 stroke-current md:w-4 md:h-4" wire:loading.remove wire:target="removeItem, save">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                 </path>
             </svg>
