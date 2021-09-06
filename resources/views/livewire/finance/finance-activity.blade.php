@@ -60,7 +60,8 @@
 
 
                 <div class="flex flex-col justify-center items-center p-4">
-                    <button wire:click="resetFlight" wire:target="resetFlight" wire:loading.class="loading" class="btn btn-primary "> Choose another Flight</button>
+                    <button wire:click="resetFlight" wire:target="resetFlight" wire:loading.class="loading"
+                        class="btn btn-primary "> Choose another Flight</button>
                 </div>
 
             @endif
@@ -127,7 +128,7 @@
             @if ($image)
                 <img src="{{ $image }}" class="object-contain w-32" />
             @endif
-            <canvas id="canvas" class="canvas bg-yellow-400 shadow-sm w-full">
+            <canvas id="canvas" width=400 height=400 wire:ignore class="canvas bg-yellow-400 shadow-sm ">
 
             </canvas>
             @if ($flight != null)
@@ -137,7 +138,8 @@
                         <button wire:click="$emit('clear')" class="btn btn-primary"> Clear </button>
                     </div>
                     <div class="flex-auto">
-                        <button wire:click="$emit('save')" class="btn btn-primary" wire:target="signatureSaved" wire:loading.class="loading" > Save and Complete </button>
+                        <button wire:click="$emit('save')" class="btn btn-primary" wire:target="signatureSaved"
+                            wire:loading.class="loading"> Save and Complete </button>
                     </div>
 
                 </div>
@@ -156,7 +158,19 @@
     document.addEventListener('livewire:load', function() {
         var canvas = document.querySelector("canvas");
 
+        function resizeCanvas() {
+            // When zoomed out to less than 100%, for some very strange reason,
+            // some browsers report devicePixelRatio as less than 1
+            // and only part of the canvas is cleared then.
+            var ratio = Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
+        }
         var signaturePad = new SignaturePad(canvas);
+        window.onresize = resizeCanvas;
+        resizeCanvas();
+
 
         @this.on('clear', () => {
             signaturePad.clear();

@@ -28,7 +28,7 @@
                     @if ($user->signature)
                         <img src="{{ $image }}" class="object-contain w-32" />
                     @endif
-                    <canvas id="canvas" class="canvas bg-yellow-400 shadow-sm w-full">
+                    <canvas id="canvas" width=400 height=400 wire:ignore class="canvas bg-yellow-400 shadow-sm">
 
                     </canvas>
 
@@ -70,7 +70,18 @@
     <script>
         var canvas = document.querySelector("canvas");
 
+        function resizeCanvas() {
+            // When zoomed out to less than 100%, for some very strange reason,
+            // some browsers report devicePixelRatio as less than 1
+            // and only part of the canvas is cleared then.
+            var ratio = Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
+        }
         var signaturePad = new SignaturePad(canvas);
+        window.onresize = resizeCanvas;
+        resizeCanvas();
         clearButton.addEventListener("click", function(event) {
             signaturePad.clear();
             return false;
