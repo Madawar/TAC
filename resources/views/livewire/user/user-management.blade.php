@@ -2,31 +2,29 @@
     <div>
         <div class="flex flex-row space-x-2 ">
             <div class="flex-auto">
-                <x-forms.input label="Name :" placeholder="Name" name="user.name" />
+                <x-forms.input label="Name :" placeholder="Name" name="user.name" wire:model="user.name" />
             </div>
             <div class="flex-auto">
-                <x-forms.input label="Email :" placeholder="Email" name="user.email" />
+                <x-forms.input label="Email :" placeholder="Email" name="user.email" wire:model="user.email" />
             </div>
             <div class="flex-auto">
                 <?php $levels = [
-                'osh' => 'osh',
-                'manager' => 'manager',
-                'raiser' => 'raiser',
+                    '' => '',
+                    'tao' => 'tao',
+                    'manager' => 'manager',
+                    'admin' => 'admin',
                 ]; ?>
-                <x-forms.select label="Account Type :" placeholder="Account Type" name="user.account_type"
-                    :options="$levels" />
+                <x-forms.select label="Account Type :" placeholder="Account Type" wire:model="user.account_type"
+                    name="user.account_type" :options="$levels" />
             </div>
         </div>
         <div class="w-full p-2">
             <div class="justify-self-center">
-                <button wire:click="saveUser"
-                    class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-green-500 rounded shadow ripple hover:shadow-lg hover:bg-green-600 focus:outline-none">
+                <button wire:click="saveUser" wire:target="saveUser" wire:loading.class="loading"
+                    class="btn btn-primary btn-block">
                     Save User
                 </button>
-                <div class="flex items-center bg-blue-900 text-white text-sm font-bold px-4 py-3" wire:loading
-                    wire:target="saveUser">
-                    Saving User
-                </div>
+
 
             </div>
         </div>
@@ -74,14 +72,14 @@
             </div>
         </div>
     </div>
-    <table class="table-auto w-full" wire:loading.class="cursor-wait">
+    <table class="table table-compact table-zebra w-full" wire:loading.class="cursor-wait">
         <thead>
-            <tr class="bg-gray-400">
-                <th class="pr-5 pl-5 border-r border-t border-l border-gray-300 prose w-1"></th>
-                <th class="pr-5 pl-5 border-r border-t border-l border-gray-300 prose">Name</th>
-                <th class="pr-5 pl-5  border-r border-t border-gray-300 prose">Email</th>
-                <th class="pr-5 pl-5  border-r border-t border-gray-300 prose">Role</th>
-                <th class="pr-5 pl-5  border-r border-t border-gray-300 prose">Reset</th>
+            <tr class="">
+                <th class=""></th>
+                <th class="">Name</th>
+                <th class="">Email</th>
+                <th class="">Role</th>
+                <th class="">Reset</th>
             </tr>
         </thead>
         <tbody>

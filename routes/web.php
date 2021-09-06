@@ -6,6 +6,7 @@ use App\Http\Controllers\CarrierController;
 use App\Http\Controllers\FinanceActivityController;
 use App\Http\Controllers\FlightScheduleController;
 use App\Http\Controllers\FlightServiceController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,4 @@ Route::resource('carrier', CarrierController::class)->middleware('auth');
 Route::resource('schedule', FlightScheduleController::class)->middleware('auth');
 Route::resource('service', FlightServiceController::class)->middleware('auth');
 Route::resource('finance', FinanceActivityController::class)->middleware('auth');
+Route::resource('profile', ProfileController::class)->middleware('auth');

@@ -19,12 +19,12 @@
               </svg>
         </td>
         <td class="p-3 border border-r border-gray-50 ">
-            <x-forms.input label="" placeholder="Username" name="user.name" />
+            <x-forms.input label="" placeholder="Username" name="user.name" wire:model="user.name" />
 
 
         </td>
         <td class="p-3 border border-r border-gray-50 ">
-            <x-forms.input label="" placeholder="Email" name="user.email" />
+            <x-forms.input label="" placeholder="Email" name="user.email" wire:model="user.email" />
         </td>
         <td class="p-3 border border-r border-gray-50 ">
             <?php $levels = [
@@ -32,7 +32,7 @@
                 'manager' => 'manager',
                 'raiser' => 'raiser',
                 ]; ?>
-                <x-forms.select label="" placeholder="Account Type" name="user.account_type"
+                <x-forms.select label="" placeholder="Account Type" name="user.account_type" wire:model="user.account_type"
                     :options="$levels" />
         </td>
 

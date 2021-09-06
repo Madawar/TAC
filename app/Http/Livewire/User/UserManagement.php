@@ -26,12 +26,13 @@ class UserManagement extends Component
     public $account_type;
     protected $rules = [
         'user.name' => 'required',
-        'user.email' => 'required',
+        'user.email' => 'required|email',
         'user.account_type' => 'required',
 
     ];
     public function mount()
     {
+        $this->user = User::make()->setConnection(env('DB_CONNECTION'));
     }
 
     public function render()
@@ -70,7 +71,8 @@ class UserManagement extends Component
 
     public function saveUser()
     {
-        dd($this->user);
+       // dd($this->user);
+        $this->validate();
         User::create(array(
             'name' => $this->user->name,
             'email' => $this->user->email,
