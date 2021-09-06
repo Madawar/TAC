@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Image;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -19,7 +20,8 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('profile.update_profile')->with(compact('user'));
+        $image = Storage::url('signatures/' . $user->signature);
+        return view('profile.update_profile')->with(compact('user','image'));
     }
 
     /**
