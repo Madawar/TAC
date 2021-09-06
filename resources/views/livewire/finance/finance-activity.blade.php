@@ -145,7 +145,11 @@
         </div>
     </div>
 
+    <div class="text-gray-400 text-center" wire:poll.keep-alive>
 
+        Current time: {{ now() }}
+
+    </div>
 </div>
 
 <script>
