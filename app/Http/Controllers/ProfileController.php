@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Str;
+use Image;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -70,7 +74,34 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->signature != null) {
+            $data_uri = $request->signature;
+            $encoded_image = explode(",", $data_uri)[1];
+            $decoded_image = base64_decode($encoded_image);
+            $filename = Str::random(40) . '.png';
+            Image::make($decoded_image)->save(storage_path('app/public/signatures/' . $filename));
+            User::find($id)->update(
+                array(
+                    'signature' => $filename
+                )
+            );
+        }
+
+        if ($request->password == null) {
+            User::find($id)->update(
+                array(
+                    'name' => $request->name
+                )
+            );
+        } else {
+            User::find($id)->update(
+                array(
+                    'name' => $request->name,
+                    'password' => Hash::make($request->password)
+                )
+            );
+        }
+     return redirect()->route('flight.index');
     }
 
     /**

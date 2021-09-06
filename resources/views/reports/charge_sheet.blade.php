@@ -186,11 +186,13 @@ use Illuminate\Support\Str;
             </tr>
             <tr>
                 <td style="width: 300px; height: 90px; vertical-align: top; text-align: left;font-weight: bold;">
-                    AFS Representative
+                    AFS Representative<br/>
+                    {{ $user->name }}
 
                 </td>
                 <td style="width: 300px; height: 90px; vertical-align: top; text-align: left;font-weight: bold;">
-                    Signature
+                    Signature<br/>
+                    <img src="{{ url('/storage/signatures/' . $user->signature) }}" style="max-width:auto; height:auto;" />
                 </td>
 
             </tr>
