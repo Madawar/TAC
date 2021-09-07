@@ -174,9 +174,9 @@ use Illuminate\Support\Str;
                 </td>
                 <td style="width: 300px; height: 90px; vertical-align: top; text-align: left;font-weight: bold;">
                     Signature<br />
-
+                    @if($flight->signature != null)
                         <img src="{{ url('/storage/signatures/' . $flight->signature) }}" style="max-width:auto; height:auto;" />
-
+                    @endif
                 </td>
 
             </tr>
@@ -192,7 +192,9 @@ use Illuminate\Support\Str;
                 </td>
                 <td style="width: 300px; height: 90px; vertical-align: top; text-align: left;font-weight: bold;">
                     Signature<br/>
-                    <img src="{{ url('/storage/signatures/' . $user->signature) }}" style="max-width:auto; height:auto;" />
+                    @if($user->signature != null)
+                     <img src="{{ url('/storage/signatures/' . $user->signature) }}" style="max-width:auto; height:auto;" />
+                    @endif
                 </td>
 
             </tr>

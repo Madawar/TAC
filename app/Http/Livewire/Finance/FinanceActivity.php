@@ -7,6 +7,7 @@ use Livewire\Component;
 use Image;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 use Illuminate\Support\Facades\Storage;
 
@@ -67,7 +68,7 @@ class FinanceActivity extends Component
         $decoded_image = base64_decode($encoded_image);
         $filename = Str::random(40) . '.png';
         Image::make($decoded_image)->save(storage_path('app/public/signatures/' . $filename));
-        $this->flight->update(array('signature' => $filename, 'signature_name' => $this->signature_name));
+        $this->flight->update(array('signature' => $filename, 'signature_name' => $this->signature_name,'done_by'=>Auth::user()->id));
         $flight = Flight::with('carrier', 'services')->find($this->flight->id);
         return redirect()->route('flight.show', ['flight' => $flight->id]);
     }
