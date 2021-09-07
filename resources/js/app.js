@@ -1,4 +1,8 @@
 require('./bootstrap');
 window.Vue = require('vue/dist/vue.common.js')
-require('alpinejs');
+import Alpine from 'alpinejs'
+
+window.Alpine = Alpine
+
+Alpine.start()
 

@@ -82,6 +82,9 @@ class FlightController extends Controller
     public function show(Request $request, $flight)
     {
         $flight = Flight::with('carrier', 'services')->find($flight);
+        if($flight->pdf == null){
+
+        }
         $pdf = Storage::url('pdf/' . $flight->pdf);
         $carrier_email = $flight->carrier->carrier_email;
         if ($request->has('email')) {
@@ -139,7 +142,7 @@ class FlightController extends Controller
             'carrier_id' => 'required',
         ]);
         Flight::find($flight->id)->update($request->all());
-        return redirect()->route('flight.show', ['id' => $flight->id]);
+        return redirect()->route('flight.show', ['flight' => $flight->id]);
     }
 
     /**
