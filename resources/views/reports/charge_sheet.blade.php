@@ -107,7 +107,7 @@ use Illuminate\Support\Str;
                     </tr>
                     <tr>
                         <td colspan="2">
-                            Aircraft Registration: <u><b>{{ $flight->aircraftRegistration }}</b></u>
+                            Aircraft Registration: <u><b>{{ $flight->aircraft_registration }}</b></u>
 
                         </td>
                         <td colspan="2">
