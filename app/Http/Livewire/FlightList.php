@@ -48,4 +48,8 @@ class FlightList extends Component
         }
         return view('livewire.flight-list')->with(compact('flights'));
     }
+
+    public function deleteFlight($id){
+        Flight::destroy($id);
+    }
 }

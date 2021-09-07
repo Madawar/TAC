@@ -121,7 +121,8 @@
                         <span class="label-text block text-xs font-semibold text-gray-600 uppercase">Airline
                             Representative Name : </span>
                     </label>
-                    <input type="text" wire:model="signature_name" class="input input-bordered">
+                    <x-forms.input label="" placeholder="Name Of Airline Representative" name="signature_name" wire:model="signature_name" />
+
                 </div>
 
             </div>

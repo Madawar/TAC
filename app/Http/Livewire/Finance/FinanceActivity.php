@@ -19,7 +19,7 @@ class FinanceActivity extends Component
     public $image = null;
     protected $rules = [
         'flight_id' => '',
-        'signature_name' => ''
+        'signature_name' => 'required|min:3'
     ];
 
     protected $listeners = ['signature_saved' => 'signatureSaved', 'addedService' => 'updateService'];
@@ -61,6 +61,7 @@ class FinanceActivity extends Component
 
     public function signatureSaved($data)
     {
+        $this->validate();
         $data_uri = $data;
         $encoded_image = explode(",", $data_uri)[1];
         $decoded_image = base64_decode($encoded_image);

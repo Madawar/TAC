@@ -48,16 +48,24 @@ class FlightController extends Controller
     {
         $data = $request->validate([
             'arrival' => 'required',
-            'STD'=>'required',
-            'STA'=>'required',
-            'flight_date'=>'required',
-            'turnaround_type'=>'required',
-            'aircraft_type'=>'required',
-            'flight_type'=>'required',
-            'destination'=>'required',
-            'origin'=>'required',
-            'flight_no'=>'required',
-            'carrier_id'=>'required',
+            'STD' => 'required',
+            'STA' => 'required',
+            'flight_date' => 'required',
+            'turnaround_type' => 'required',
+            'aircraft_type' => 'required',
+            'flight_type' => 'required',
+            'destination' => 'required',
+            'origin' => 'required',
+            'flight_no' => 'required',
+            'carrier_id' => 'required',
+            'flight_no' => [
+                function ($attribute, $value, $fail) use ($request) {
+                    $existing_flights = Flight::where('flight_no', $request->flight_no)->where('flight_date', $request->flight_date)->count();
+                    if ($existing_flights > 0) {
+                        $fail('This Flight has already been created, please recheck');
+                    }
+                },
+            ]
 
         ]);
         $flight = Flight::create($request->all());
@@ -87,7 +95,7 @@ class FlightController extends Controller
         if ($flight->pdf != null) {
             $user = Auth::user();
             $pdf_doc = PDF::setOptions(['dpi' => 150, 'defaultPaperSize' => 'a4', 'isRemoteEnabled' => true])
-                ->loadView('reports.charge_sheet', compact('flight','user'));
+                ->loadView('reports.charge_sheet', compact('flight', 'user'));
             $pdf_doc->save(storage_path('app/public/pdf/' . $flight->pdf));
         }
 
@@ -118,16 +126,16 @@ class FlightController extends Controller
     {
         $data = $request->validate([
             'arrival' => 'required',
-            'STD'=>'required',
-            'STA'=>'required',
-            'flight_date'=>'required',
-            'turnaround_type'=>'required',
-            'aircraft_type'=>'required',
-            'flight_type'=>'required',
-            'destination'=>'required',
-            'origin'=>'required',
-            'flight_no'=>'required',
-            'carrier_id'=>'required',
+            'STD' => 'required',
+            'STA' => 'required',
+            'flight_date' => 'required',
+            'turnaround_type' => 'required',
+            'aircraft_type' => 'required',
+            'flight_type' => 'required',
+            'destination' => 'required',
+            'origin' => 'required',
+            'flight_no' => 'required',
+            'carrier_id' => 'required',
         ]);
         Flight::find($flight->id)->update($request->all());
         return redirect()->route('flight.show', ['id' => $flight->id]);
@@ -143,6 +151,4 @@ class FlightController extends Controller
     {
         return $flight->delete();
     }
-
-
 }
