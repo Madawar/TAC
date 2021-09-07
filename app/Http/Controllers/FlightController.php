@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\FlightCompleted;
 use App\Models\Carrier;
 use App\Models\Flight;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -93,7 +94,7 @@ class FlightController extends Controller
             Mail::to($to)->send(new FlightCompleted($flight));
         }
         if ($flight->pdf != null) {
-            $user = Auth::user();
+            $user = User::find($flight->done_by);
             $pdf_doc = PDF::setOptions(['dpi' => 150, 'defaultPaperSize' => 'a4', 'isRemoteEnabled' => true])
                 ->loadView('reports.charge_sheet', compact('flight', 'user'));
             $pdf_doc->save(storage_path('app/public/pdf/' . $flight->pdf));
