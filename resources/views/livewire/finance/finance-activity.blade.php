@@ -121,7 +121,8 @@
                         <span class="label-text block text-xs font-semibold text-gray-600 uppercase">Airline
                             Representative Name : </span>
                     </label>
-                    <x-forms.input label="" placeholder="Name Of Airline Representative" name="signature_name" wire:model="signature_name" />
+                    <x-forms.input label="" placeholder="Name Of Airline Representative" name="signature_name"
+                        wire:model="signature_name" />
 
                 </div>
 
@@ -177,9 +178,13 @@
             signaturePad.clear();
         });
         @this.on('save', () => {
+            if (signaturePad.isEmpty()) {
+                alert('Please Collect a signature from the airline. Do Not Sign on behalf of the airline');
+            } else {
+                const data = signaturePad.toDataURL();
+                Livewire.emit('signature_saved', data)
+            }
 
-            const data = signaturePad.toDataURL();
-            Livewire.emit('signature_saved', data)
         });
 
     })

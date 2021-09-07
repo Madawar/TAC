@@ -34,7 +34,7 @@ class Flight extends Model
             $month = Carbon::parse($model->flight_date);
             $serial = $month->format('Ym') . '/' . $model->carrier->carrier_code . '/' . $model->flight_type . '/';
             $model->serial = '';
-            $model->pdf = Str::random(40) . '.pdf';
+            $model->pdf = $model->carrier->carrier_code.'/'.$model->flight_no.'/'.$month->format('md') .'/'. Str::random(4) . '.pdf';
             $cc = Counter::firstOrCreate([
                 'month' => $month->month,
                 'year' => $month->year,
@@ -42,6 +42,14 @@ class Flight extends Model
             ]);
             $cc->increment('serial');
             $model->serial = $serial.str_pad($cc->serial + 1, 4, "0", STR_PAD_LEFT);
+        });
+        self::retrieved(function ($model) {
+            if($model->pdf == null){
+                $month = Carbon::parse($model->flight_date);
+                $model->pdf = $model->carrier->carrier_code.'/'.$model->flight_no.'/'.$month->format('md') .'/'. Str::random(4) . '.pdf';
+                $model->save();
+            }
+
         });
     }
     public function carrier()
