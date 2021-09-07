@@ -172,7 +172,7 @@ use Illuminate\Support\Str;
                     <tr>
                         <td colspan="2" style="font-weight: bold; background: #f6fbff;">Airline</td>
                     </tr>
-                    <tr style="height: 300px;">
+                    <tr>
                         <td
                             style="width: 300px; height: 90px; vertical-align: top; text-align: left;font-weight: bold;">
                             Airline Representative<br />
@@ -184,7 +184,7 @@ use Illuminate\Support\Str;
                             Signature<br />
                             @if ($flight->signature != null)
                                 <img src="{{ url('/storage/signatures/' . $flight->signature) }}"
-                                    style="max-width:auto; height:auto;" />
+                                    style="max-width:auto; height:90px;" />
                             @endif
                         </td>
 
@@ -206,7 +206,7 @@ use Illuminate\Support\Str;
                             Signature<br />
                             @if ($user)
                                 <img src="{{ url('/storage/signatures/' . $user->signature) }}"
-                                    style="max-width:auto; height:auto;" />
+                                    style="max-width:auto; height:90px;" />
                             @endif
                         </td>
 
