@@ -157,11 +157,8 @@ use Illuminate\Support\Str;
         var app2 = new Vue({
             el: '#appx',
             mounted() {
-                tippy('.service')
-                flatpickr(".date", {
-                  //  defaultDate: "{{ Carbon\Carbon::today()->format('Y-m-d') }}",
-                    mode: "range"
-                });
+
+
             },
             data: {
                 isActive: false,
@@ -169,6 +166,9 @@ use Illuminate\Support\Str;
             },
             methods: {
                 showConfirm: function() {
+                    this.isActive = !this.isActive;
+                },
+                deleteItem: function() {
                     this.isActive = !this.isActive;
                 },
                 deleteSale: function() {
