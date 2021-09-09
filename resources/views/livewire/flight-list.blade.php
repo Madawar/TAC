@@ -108,7 +108,7 @@
                         <td>
 
                             @if (isset($flight->owner->id))
-                                @if ($flight->owner->id == Auth::user()->id)
+                                @if ($flight->owner->id == Auth::user()->id and $flight->signature != null)
                                     <button class="btn  btn-square btn-xs btn-error"
                                         wire:click="deleteFlight({{ $flight->id }})" wire:target="deleteFlight"
                                         wire:loading.class="loading">
@@ -122,19 +122,17 @@
                                 @endif
                             @endif
 
-                            @if (isset($flight->owner->id))
-                                @if ($flight->owner->id == Auth::user()->id)
-                                    <a href="{{ route('flight.edit', ['flight' => $flight->id]) }}"
-                                        class="btn btn-warning btn-square btn-xs">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                        </svg>
 
-                                    </a>
-                                @endif
-                            @endif
+                            <a href="{{ route('flight.edit', ['flight' => $flight->id]) }}"
+                                class="btn btn-warning btn-square btn-xs">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                </svg>
+
+                            </a>
+
                             <a href="{{ route('flight.show', ['flight' => $flight->id]) }}"
                                 class="btn  btn-square btn-xs btn-success">
 
