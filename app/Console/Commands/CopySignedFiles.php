@@ -6,7 +6,7 @@ use App\Models\Flight;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
-
+use File;
 class CopySignedFiles extends Command
 {
     /**
@@ -47,10 +47,12 @@ class CopySignedFiles extends Command
             ->get();
         foreach ($flights as $flight) {
             $date = Carbon::parse($flight->flight_date);
-            Storage::disk('shared')->makeDirectory($flight->carrier->carrier_code.'/'.$date->format('my'));
-            $new_path = $flight->carrier->carrier_code.'/'.$date->format('my').'/'. $flight->pdf;
+            Storage::disk('shared')->makeDirectory($flight->carrier->carrier_code . '/' . $date->format('my'));
+            $new_path = $flight->carrier->carrier_code . '/' . $date->format('my') . '/' . $flight->pdf;
             $copy_from = base_path('storage/app/public/pdf/' . $flight->pdf);
-            Storage::disk('shared')->put($new_path, $copy_from);
+            $pathSource = Storage::disk('local')->getDriver()->getAdapter()->applyPathPrefix($copy_from);
+            $destinationPath = Storage::disk('shared')->getDriver()->getAdapter()->applyPathPrefix($new_path);
+            File::copy($pathSource, $destinationPath);
         }
         return 0;
     }
