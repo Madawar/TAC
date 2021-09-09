@@ -49,7 +49,7 @@ class CopySignedFiles extends Command
             $date = Carbon::parse($flight->flight_date);
             Storage::disk('shared')->makeDirectory($flight->carrier->carrier_code . '/' . $date->format('my'));
             $new_path = $flight->carrier->carrier_code . '/' . $date->format('my') . '/' . $flight->pdf;
-            $copy_from = base_path('storage/app/public/pdf/' . $flight->pdf);
+            $copy_from = 'public/pdf/' . $flight->pdf;
             $pathSource = Storage::disk('local')->getDriver()->getAdapter()->applyPathPrefix($copy_from);
             $destinationPath = Storage::disk('shared')->getDriver()->getAdapter()->applyPathPrefix($new_path);
             File::copy($pathSource, $destinationPath);
