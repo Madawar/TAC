@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Carrier;
 use Illuminate\Http\Request;
 use Image;
+use App\Rules\Emails\CommaSeparatedEmails;
 
 class CarrierController extends Controller
 {
@@ -40,12 +41,14 @@ class CarrierController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'carrier_email' => 'email',
+            'carrier_email' => 'required',
             'carrier_code' => 'required|max:4',
             'logo' => 'file',
             'carrier_name' => 'required|min:3',
         ]);
-        $data['logo'] = $this->saveImage($request, 'logo', $data['carrier_code']);
+        if (isset($data['logo'])) {
+            $data['logo'] = $this->saveImage($request, 'logo', $data['carrier_code']);
+        }
         $carrier = Carrier::create($data);
         return redirect()->route('carrier.show_carrier', ['id' => $carrier->id]);
     }
@@ -112,15 +115,18 @@ class CarrierController extends Controller
     public function update(Request $request, Carrier $carrier)
     {
         $data = $request->validate([
-            'carrier_email' => 'email',
+            'carrier_email' => 'required',
             'carrier_code' => 'required|max:4',
             'logo' => 'file',
             'carrier_name' => 'required|min:2',
         ]);
-        $data['logo'] = $this->saveImage($request, 'logo', $data['carrier_code']);
-        $this->saveImage($request, 'logo', $data['carrier_code']);
+
+        if (isset($data['logo'])) {
+            $data['logo'] = $this->saveImage($request, 'logo', $data['carrier_code']);
+        }
+
         Carrier::find($carrier->id)->update($data);
-        return redirect()->route('carrier.show', ['id' => $carrier->id]);
+        return redirect()->back();
     }
 
     /**

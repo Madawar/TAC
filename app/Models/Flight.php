@@ -56,6 +56,10 @@ class Flight extends Model
     {
         return $this->belongsTo(Carrier::class);
     }
+    public function owner()
+    {
+        return $this->hasOne(User::class,'id','done_by');
+    }
 
     public function getFlightNumberAttribute()
     {

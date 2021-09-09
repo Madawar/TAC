@@ -53,74 +53,83 @@ use Illuminate\Support\Str;
 
             </div>
         </form>
-       <div class="overflow-x-auto">
-    <table class="table table-compact w-full">
-        <thead>
+        <div class="overflow-x-auto">
+            <table class="table table-compact w-full">
+                <thead>
 
-            <tr>
-                <th></th>
-                      <th>Logo</th>
-      <th>Carrier Name</th>
-      <th>Carrier Email</th>
-      <th>Carrier Code</th>
-
-
-
-            </tr>
-        </thead>
-        <tbody>
-
-            @foreach ($carriers as $carrier)
-                <tr>
-                    <th>{{ $loop->index + 1 }}</th>
-                           <td>{{ $carrier->logo }}</td>
-       <td>{{ $carrier->carrier_name }}</td>
-       <td>{{ $carrier->carrier_email }}</td>
-       <td>{{ $carrier->carrier_code }}</td>
-
-                    <td>
-
-                    @if ($carrier->flights()->exists())
-
-                    @else
-                        <button class="btn btn-outline btn-square btn-xs"
-                            v-on:click="openModal({{ $carrier->id }})">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </button>
-                    @endif
-                    <a href="{{ route('carrier.edit', ['carrier' => $carrier->id]) }}"
-                        class="btn btn-outline btn-square btn-xs">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                    </a>
+                    <tr>
+                        <th></th>
+                        <th>Logo</th>
+                        <th>Carrier Name</th>
+                        <th>Carrier Email</th>
+                        <th>Carrier Code</th>
 
 
-                </td>
-                </tr>
-            @endforeach
 
-        </tbody>
-        <tfoot>
-            <tr>
-                <th></th>
-                      <th>Logo</th>
-      <th>Carrier Name</th>
-      <th>Carrier Email</th>
-      <th>Carrier Code</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-            </tr>
-        </tfoot>
-    </table>
-</div>
+                    @foreach ($carriers as $carrier)
+                        <tr>
+                            <th>{{ $loop->index + 1 }}</th>
+                            <td>
+                                @if ($carrier->logo)
+                                    <img src="{{ asset('storage/images/thumbnail/' . $carrier->logo) }}">
+                                @else
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                                  </svg>
+                                @endif
+
+                            </td>
+                            <td>{{ $carrier->carrier_name }}</td>
+                            <td>{{ $carrier->carrier_email }}</td>
+                            <td>{{ $carrier->carrier_code }}</td>
+
+                            <td>
+
+                                @if ($carrier->flights()->exists())
+
+                                @else
+                                    <button class="btn btn-outline btn-square btn-xs"
+                                        v-on:click="openModal({{ $carrier->id }})">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </button>
+                                @endif
+                                <a href="{{ route('carrier.edit', ['carrier' => $carrier->id]) }}"
+                                    class="btn btn-outline btn-square btn-xs">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </a>
+
+
+                            </td>
+                        </tr>
+                    @endforeach
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>Logo</th>
+                        <th>Carrier Name</th>
+                        <th>Carrier Email</th>
+                        <th>Carrier Code</th>
+
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
 
 
         {{ $carriers->appends(request()->query())->links() }}
@@ -179,7 +188,7 @@ use Illuminate\Support\Str;
                             console.log(response);
                             app2.showConfirm();
                             app2.item_id = null;
-                                 window.location.href = route('sale.index');
+                            window.location.href = route('sale.index');
                             // app2.showSuccessful();
                         })
                         .catch(function(error) {
@@ -208,6 +217,5 @@ use Illuminate\Support\Str;
 
             }
         })
-
     </script>
 @endsection

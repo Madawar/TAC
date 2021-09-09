@@ -50,7 +50,7 @@
     <div class="flex flex-col md:flex-row p-2 md:space-x-3 w-full">
 
         <div class="flex-auto">
-            <x-forms.input label="Carrier Email" placeholder="Carrier Email" name="carrier_email"
+            <x-forms.input label="Carrier Email (Comma Seperated For Several Emails)" placeholder="Carrier Email" name="carrier_email"
                 model="{!! $carrier ?? null !!}" />
 
         </div>

@@ -13,6 +13,7 @@ use PDF;
 use Auth;
 use Illuminate\Support\Facades\Storage;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Arr;
 
 class FlightController extends Controller
 {
@@ -82,29 +83,38 @@ class FlightController extends Controller
     public function show(Request $request, $flight)
     {
         $flight = Flight::with('carrier', 'services')->find($flight);
-        if($flight->pdf == null){
-
+        if ($flight->pdf == null) {
         }
         $pdf = Storage::url('pdf/' . $flight->pdf);
         $carrier_email = $flight->carrier->carrier_email;
         if ($request->has('email')) {
-            if ($request->mm != null and $request->mm != '') {
-                $to = [$carrier_email, $request->mm];
-            } else {
-                $to = [$carrier_email];
+            if ($flight->email_sent == 0 and $flight->signature != null) {
+                if ($request->mm != null and $request->mm != '') {
+                    $to = explode(',', $request->mm);
+                } else {
+                    $to = [$carrier_email];
+                }
+                if (env('MAIL_FROM_CC') != "" and env('MAIL_FROM_CC') != null) {
+                     array_push($to, env('MAIL_FROM_CC'));
+                }
+                $to = Arr::flatten($to);
+                Mail::to($to)->send(new FlightCompleted($flight));
+                $flight->email_sent = 1;
+                $flight->save();
             }
-
-            Mail::to($to)->send(new FlightCompleted($flight));
         }
-        if ($flight->pdf != null) {
-            $user = User::find($flight->done_by);
-            $pdf_doc = PDF::setOptions(['dpi' => 150, 'defaultPaperSize' => 'a4', 'isRemoteEnabled' => true])
-                ->loadView('reports.charge_sheet', compact('flight', 'user'));
-            $pdf_doc->save(storage_path('app/public/pdf/' . $flight->pdf));
+        if (env('APP_ENV') != 'local') {
+            if ($flight->pdf != null) {
+                $user = User::find($flight->done_by);
+                $pdf_doc = PDF::setOptions(['dpi' => 150, 'defaultPaperSize' => 'a4', 'isRemoteEnabled' => true])
+                    ->loadView('reports.charge_sheet', compact('flight', 'user'));
+                $pdf_doc->save(storage_path('app/public/pdf/' . $flight->pdf));
+            }
         }
 
 
-        return view('flight.view_flight')->with(compact('flight', 'pdf'));
+        $carrier_emails = $flight->carrier->carrier_email;
+        return view('flight.view_flight')->with(compact('flight', 'pdf', 'carrier_emails'));
     }
 
     /**
