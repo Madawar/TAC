@@ -13,7 +13,8 @@ use Illuminate\Support\Str;
     <div class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-between">
         <a href="#"
             class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
-            Hi, {{ Str::of(Auth::user()->name)->explode(' ')[0] }}
+            Hi, {{ Str::of(Auth::user()->name)->explode(' ')[0] }} <br/>
+
         </a>
         <button class="rounded-lg md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
             <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
@@ -25,6 +26,22 @@ use Illuminate\Support\Str;
                     clip-rule="evenodd"></path>
             </svg>
         </button>
+    </div>
+    <div class="text-center md:hidden">
+        @if (Auth::check())
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <a href="#" onclick="event.preventDefault();
+this.closest('form').submit();" class="btn btn-ghost btn-sm rounded-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    class="h-6 w-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                <span class="ml-3">Logout ({{ Auth::user()->name }})</span>
+            </a>
+        </form>
+    @endif
     </div>
     <nav :class="{'block': open, 'hidden': !open}" class="flex-grow hidden {{$breakpoint}}:block px-1 pb-4 md:pb-0 {{$breakpoint}}:overflow-y-auto  ">
 
