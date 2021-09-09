@@ -122,7 +122,7 @@
                                 @endif
                             @endif
 
-                            @if ($flight->signature != null)
+                            @if ($flight->signature == null)
                                 <a href="{{ route('flight.edit', ['flight' => $flight->id]) }}"
                                     class="btn btn-warning btn-square btn-xs">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
