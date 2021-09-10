@@ -170,7 +170,7 @@
             canvas.getContext("2d").scale(ratio, ratio);
         }
         var signaturePad = new SignaturePad(canvas);
-        window.onresize = resizeCanvas;
+      //  window.onresize = resizeCanvas;
         resizeCanvas();
 
 
