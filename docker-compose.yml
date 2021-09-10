@@ -15,6 +15,14 @@ services:
             LARAVEL_SAIL: 1
         volumes:
             - '.:/var/www/html'
+        deploy:
+          resources:
+            limits:
+              cpus: '8'
+              memory: '5G'
+            reservations:
+              cpus: '8'
+              memory: '5G'
         networks:
             - sail
         depends_on:

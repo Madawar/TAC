@@ -75,11 +75,11 @@ use Illuminate\Support\Str;
                     <tr>
                         <td>
                             Flight Number : <u><b
-                                    class="">{{ $flight->carrier->carrier_code }} {{ $flight->flightNo }}</b></u>
+                                    class="">{{ $flight->carrier->carrier_code }} {{ $flight->flight_no }}</b></u>
 
                 </td>
                 <td>
-                    Origin : <u><b>{{ $flight->orig }}</b></u>
+                    Origin : <u><b>{{ $flight->origin }}</b></u>
                 </td>
                 <td>
                     STA : <u><b>{{ $flight->STA }}</b></u>
@@ -91,11 +91,11 @@ use Illuminate\Support\Str;
             </tr>
             <tr>
                 <td>
-                    Aircraft Type / Config : <u><b class="">{{ $flight->aircraftType }}</b></u>
+                    Aircraft Type / Config : <u><b class="">{{ $flight->aircraft_type }}</b></u>
 
                 </td>
                 <td>
-                    DEST : <u><b>{{ $flight->dest }}</b></u>
+                    DEST : <u><b>{{ $flight->destination }}</b></u>
                 </td>
                 <td>
                     STD : <u><b>{{ $flight->STD }}</b></u>
