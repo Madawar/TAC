@@ -56,7 +56,7 @@ use Illuminate\Support\Str;
             P.O Box 661 - 00521 Nairobi - Kenya</b>
     </div>
     <h1 class="text-center" style="z-index:1000;"> Aircraft Turnaround Charge Sheet</h1>
-    <h2 class="text-center ">Date : <span class="">{!! \Carbon\Carbon::parse($flight->flightDate)->format('j<\s\up>S<\/\s\up> F, Y') !!}</span>
+    <h2 class="text-center ">Date : <span class="">{!! \Carbon\Carbon::parse($flight->flight_date)->format('j<\s\up>S<\/\s\up> F, Y') !!}</span>
     </h2>
 
     <hr />
