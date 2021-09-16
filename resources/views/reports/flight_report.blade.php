@@ -1,54 +1,64 @@
-<html>
+<table class="table table-compact table-zebra w-full">
+    <thead>
 
-<head>
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
-</head>
-<body>
-    <h1>Hello World</h1>
+        <tr>
+            <th></th>
+            <th>Carrier</th>
+            <th>Flight Date</th>
+            <th>Turnaround Type</th>
+            <th>Aircraft Type</th>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Flight Type</th>
+            <th>Aircraft Registration</th>
+            <th>Airline Representative</th>
+            <th>Done By</th>
+            <th>Actions</th>
 
-        <table class="table w-full">
-          <thead>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach ($flights as $flight)
             <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-              <td>Blue</td>
-            </tr>
-            <tr>
-              <th>2</th>
-              <td>Hart Hagerty</td>
-              <td>Desktop Support Technician</td>
-              <td>Purple</td>
-            </tr>
-            <tr>
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
-            <tr>
-              <th>4</th>
-              <td>Marjy Ferencz</td>
-              <td>Office Assistant I</td>
-              <td>Crimson</td>
-            </tr>
-            <tr>
-              <th>5</th>
-              <td>Yancy Tear</td>
-              <td>Community Outreach Specialist</td>
-              <td>Indigo</td>
-            </tr>
-          </tbody>
-        </table>
+                <th>
+                    {{ $flight->serial }}
+
+                </th>
+                <td>
+                    {{ $flight->carrier->carrier_code }} {{ $flight->flight_no }}
+                </td>
+
+                <td>
+                    {{ Carbon\Carbon::parse($flight->flight_date)->format('j-M-y') }}
+                </td>
+                <td>{{ $flight->turnaround_type }}</td>
+                <td>{{ $flight->aircraft_type }}</td>
+                <td>{{ $flight->origin }}</td>
+                <td>{{ $flight->destination }} </td>
+                <td>
+                    @if ($flight->flight_type == 'F')
+                        Freighter
+                    @elseif($flight->flight_type == 'P')
+                        Passenger
+                    @endif
+                </td>
+                <td>{{ $flight->aircraft_registration }} </td>
+                <td>{{ $flight->signature_name }} </td>
+                <td>
+                    @if (isset($flight->owner->name))
+                        {{ $flight->owner->name }}
+                    @else
+                        <b>-</b>
+                    @endif
+
+                </td>
 
 
-</body>
-</html>
+
+            </tr>
+        @endforeach
+
+    </tbody>
+
+</table>

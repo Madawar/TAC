@@ -6,14 +6,15 @@ use Illuminate\View\Component;
 
 class Date extends Component
 {
+    public $options;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($options)
     {
-        //
+        $this->options = $options;
     }
 
     /**

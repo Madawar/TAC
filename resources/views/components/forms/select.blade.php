@@ -7,7 +7,7 @@
     <select class="select select-bordered  w-full @error($name) select-error @else select-primary  @enderror"
         name="{{ $name }}" {{ $attributes }}>
         @if ($value == '')
-            <option disabled="disabled" value='' selected>{{ $placeholder}}</option>
+            <option value='' selected>{{ $placeholder}}</option>
         @else
             <option disabled="disabled" value='' >{{ $label }}</option>
         @endif
