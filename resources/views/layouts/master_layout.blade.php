@@ -21,7 +21,7 @@
 
         <div class=" md:flex flex-col md:flex-row   w-full" id="main-app">
             @include('layouts.sidebar',['breakpoint' => 'xl'])
-            <div class="w-full overflow-x-auto xl:w-4/6">
+            <div class="w-full overflow-x-auto ">
                 <div class="heading border-b border-gray-100 border-opacity-90 filter md:drop-shadow-sm bg-gray-50">
                     @section('main-heading')
 
@@ -31,15 +31,7 @@
                 @yield('content')
 
             </div>
-            <div class="flex-auto xl:block md:border-l md:border-gray-100 md:border-opacity-90 hidden  ">
-                <div class="heading border-b border-gray-100 border-opacity-90 bg-gray-50 filter md:drop-shadow-sm">
-                    @section('secondary-heading')
 
-                    @show
-
-                </div>
-                @yield('secondary-content')
-            </div>
         </div>
 
 
