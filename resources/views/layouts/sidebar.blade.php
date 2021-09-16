@@ -43,7 +43,7 @@ this.closest('form').submit();" class="btn btn-ghost btn-sm rounded-btn">
         </form>
     @endif
     </div>
-    <nav :class="{'block': open, 'hidden': !open}" class="flex-grow hidden {{$breakpoint}}:block px-1 pb-4 md:pb-0 {{$breakpoint}}:overflow-y-auto  ">
+    <nav :class="{'block': open, 'hidden': !open}" class="flex-grow md:block px-1 pb-4 md:pb-0 md:overflow-y-auto   ">
 
         <ul class="menu  w-full ">
             <li>
