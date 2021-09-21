@@ -35,7 +35,7 @@ class Flight extends Model
             $serial = $month->format('Ym') . '/' . $model->carrier->carrier_code . '/' . $model->flight_type . '/';
             $model->serial = '';
             $file   = $model->carrier->carrier_code.'_'.$model->flight_no.'_'.$month->format('md') .'_'. Str::random(4) . '.pdf';
-            $file = $this->sanitize($file);
+            $file = $model->sanitize($file);
             $model->pdf = $file;
             $cc = Counter::firstOrCreate([
                 'month' => $month->month,
@@ -49,7 +49,7 @@ class Flight extends Model
             if($model->pdf == null){
                 $month = Carbon::parse($model->flight_date);
               $file  = $model->carrier->carrier_code.'_'.$model->flight_no.'_'.$month->format('md') .'_'. Str::random(4) . '.pdf';
-                $file = $this->sanitize($file);
+                $file = $model->sanitize($file);
                 $model->pdf = $file;
 
                 $model->save();
