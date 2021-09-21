@@ -34,7 +34,11 @@ class Flight extends Model
             $month = Carbon::parse($model->flight_date);
             $serial = $month->format('Ym') . '/' . $model->carrier->carrier_code . '/' . $model->flight_type . '/';
             $model->serial = '';
-            $model->pdf = $model->carrier->carrier_code.'_'.$model->flight_no.'_'.$month->format('md') .'_'. Str::random(4) . '.pdf';
+            $file   = $model->carrier->carrier_code.'_'.$model->flight_no.'_'.$month->format('md') .'_'. Str::random(4) . '.pdf';
+            $file = mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $file);
+            // Remove any runs of periods (thanks falstro!)
+            $file = mb_ereg_replace("([\.]{2,})", '', $file);
+            $model->pdf = $file;
             $cc = Counter::firstOrCreate([
                 'month' => $month->month,
                 'year' => $month->year,
@@ -46,7 +50,12 @@ class Flight extends Model
         self::retrieved(function ($model) {
             if($model->pdf == null){
                 $month = Carbon::parse($model->flight_date);
-                $model->pdf = $model->carrier->carrier_code.'_'.$model->flight_no.'_'.$month->format('md') .'_'. Str::random(4) . '.pdf';
+              $file  = $model->carrier->carrier_code.'_'.$model->flight_no.'_'.$month->format('md') .'_'. Str::random(4) . '.pdf';
+                $file = mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $file);
+                // Remove any runs of periods (thanks falstro!)
+                $file = mb_ereg_replace("([\.]{2,})", '', $file);
+                $model->pdf = $file;
+
                 $model->save();
             }
 
