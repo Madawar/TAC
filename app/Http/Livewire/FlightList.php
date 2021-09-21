@@ -31,6 +31,7 @@ class FlightList extends Component
     public function render()
     {
         $flights = $this->query();
+        $flights->withTrashed();
         if ($flights) {
             $flights = $flights->paginate($this->pagination);;
         } else {

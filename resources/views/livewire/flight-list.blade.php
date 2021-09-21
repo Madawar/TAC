@@ -1,6 +1,6 @@
 <div>
-    <div class="bg-gray-50 shadow-sm mb-1 border ">
-        <div class="flex flex-col md:flex-row p-2 md:space-x-1 w-full">
+    <div class="bg-gray-50 border-gray-300 shadow-sm mb-1 border overflow-x-auto">
+        <div class="flex flex-col md:flex-row p-2 md:space-x-1 md:space-y-0 space-y-1 w-full">
             <div class="flex-auto">
                 <x-forms.input label="" placeholder="Search Anything" wire:model="search" name="search" />
 
@@ -23,52 +23,50 @@
 
             </div>
             <div class="flex-auto">
-                <div class=" form-control ">
 
-                <button class=" btn btn-square " wire:click='download'>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-6 h-6 stroke-current" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                    </svg>
 
-                </button>
-            </div>
-        </div>
-        <div class="flex-auto justify-items-end">
+                    <button class=" btn btn-square btn-block md:btn-circle" wire:click='download'>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-6 h-6 stroke-current" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
 
-            <div class=" flex justify-center items-center pt-1" wire:loading>
-                <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-red-500"></div>
+                    </button>
+
             </div>
 
 
         </div>
-
     </div>
-</div>
 
-<div class="overflow-x-auto">
+    <div class="overflow-x-auto">
 
-    <table class="table table-compact table-zebra w-full">
-        <thead>
 
-            <tr>
-                <th></th>
-                <th>Carrier</th>
-                <th>Flight Date</th>
-                <th>Turnaround Type</th>
-                <th>Aircraft Type</th>
-                <th>Origin</th>
-                <th>Destination</th>
-                <th>Done By</th>
-                <th>Actions</th>
+        <table class="table table-compact table-zebra w-full">
+            <thead>
 
-            </tr>
-        </thead>
-        <tbody>
-
-            @foreach ($flights as $flight)
                 <tr>
+                    <th></th>
+                    <th>Carrier</th>
+                    <th>Flight Date</th>
+                    <th>Turnaround Type</th>
+                    <th>Aircraft Type</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Done By</th>
+                    <th>Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach ($flights as $flight)
+                    @if ($flight->trashed())
+                        <tr class=" text-red-500">
+                        @else
+                        <tr>
+                    @endif
                     <th>
                         <div class="flex flex-row ">
                             <label class="pr-1">
@@ -166,40 +164,42 @@
 
 
                     </td>
+                    </tr>
+                @endforeach
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th>Carrier</th>
+
+                    <th>Flight Date</th>
+                    <th>Turnaround Type</th>
+                    <th>Aircraft Type</th>
+
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Done By</th>
+
+                    <th>Actions</th>
+
                 </tr>
-            @endforeach
+            </tfoot>
+        </table>
+        <div class="p-2">
+            {{ $flights->appends(request()->query())->links() }}
+        </div>
+    </div>
 
-        </tbody>
-        <tfoot>
-            <tr>
-                <th></th>
-                <th>Carrier</th>
-
-                <th>Flight Date</th>
-                <th>Turnaround Type</th>
-                <th>Aircraft Type</th>
-
-                <th>Origin</th>
-                <th>Destination</th>
-                <th>Done By</th>
-
-                <th>Actions</th>
-
-            </tr>
-        </tfoot>
-    </table>
-    {{ $flights->appends(request()->query())->links() }}
-</div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        flatpickr(".date", {
-            'mode': 'range'
-        });
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            flatpickr(".date", {
+                'mode': 'range'
+            });
 
 
 
-    })
-</script>
+        })
+    </script>
 
 </div>

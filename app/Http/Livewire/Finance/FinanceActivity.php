@@ -26,11 +26,8 @@ class FinanceActivity extends Component
     protected $listeners = ['signature_saved' => 'signatureSaved', 'addedService' => 'updateService'];
     public function render()
     {
-        // dd($this->flight);
         $flights = Flight::limit(10)->orderBy('created_at', 'DESC')->get()->pluck('flight_number', 'id');
-
         $flights = collect(['' => 'Choose something…'] + $flights->all());
-
         return view('livewire.finance.finance-activity')->with(compact('flights'));
     }
 
@@ -52,7 +49,6 @@ class FinanceActivity extends Component
             $this->image = Storage::url('signatures/' . $this->flight->signature);
             $this->signature_name = $this->flight->signature_name;
         }
-
         $this->emit('rerender', $this->flight);
     }
 

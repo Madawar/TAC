@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="en" data-theme="fantasy">
+<html lang="en" data-theme="corporate">
 
 <head>
     <meta charset="utf-8">
@@ -22,7 +22,7 @@
         <div class=" md:flex flex-col md:flex-row   w-full" id="main-app">
             @include('layouts.sidebar',['breakpoint' => 'xl'])
             <div class="w-full overflow-x-auto ">
-                <div class="heading border-b border-gray-100 border-opacity-90 filter md:drop-shadow-sm bg-gray-50">
+                <div class="heading border-b border-gray-300 border-opacity-90 filter md:drop-shadow-sm bg-gray-50">
                     @section('main-heading')
 
                     @show
