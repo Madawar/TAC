@@ -35,9 +35,7 @@ class Flight extends Model
             $serial = $month->format('Ym') . '/' . $model->carrier->carrier_code . '/' . $model->flight_type . '/';
             $model->serial = '';
             $file   = $model->carrier->carrier_code.'_'.$model->flight_no.'_'.$month->format('md') .'_'. Str::random(4) . '.pdf';
-            $file = mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $file);
-            // Remove any runs of periods (thanks falstro!)
-            $file = mb_ereg_replace("([\.]{2,})", '', $file);
+            $file = $this->sanitize($file);
             $model->pdf = $file;
             $cc = Counter::firstOrCreate([
                 'month' => $month->month,
@@ -51,15 +49,26 @@ class Flight extends Model
             if($model->pdf == null){
                 $month = Carbon::parse($model->flight_date);
               $file  = $model->carrier->carrier_code.'_'.$model->flight_no.'_'.$month->format('md') .'_'. Str::random(4) . '.pdf';
-                $file = mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $file);
-                // Remove any runs of periods (thanks falstro!)
-                $file = mb_ereg_replace("([\.]{2,})", '', $file);
+                $file = $this->sanitize($file);
                 $model->pdf = $file;
 
                 $model->save();
             }
 
         });
+    }
+    public function sanitize($string, $force_lowercase = true, $anal = false) {
+        $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
+                       "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
+                       "â€”", "â€“", ",", "<", ".", ">", "/", "?");
+        $clean = trim(str_replace($strip, "", strip_tags($string)));
+        $clean = preg_replace('/\s+/', "-", $clean);
+        $clean = ($anal) ? preg_replace("/[^a-zA-Z0-9]/", "", $clean) : $clean ;
+        return ($force_lowercase) ?
+            ((function_exists('mb_strtolower')) ?
+                mb_strtolower($clean, 'UTF-8') :
+                strtolower($clean)) :
+            $clean;
     }
     public function carrier()
     {
