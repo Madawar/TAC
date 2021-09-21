@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="en" data-theme="corporate">
+<html lang="en" data-theme="fantasy">
 
 <head>
     <meta charset="utf-8">

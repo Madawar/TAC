@@ -34,9 +34,9 @@ class Flight extends Model
             $month = Carbon::parse($model->flight_date);
             $serial = $month->format('Ym') . '/' . $model->carrier->carrier_code . '/' . $model->flight_type . '/';
             $model->serial = '';
-            $file   = $model->carrier->carrier_code.'_'.$model->flight_no.'_'.$month->format('md') .'_'. Str::random(4) . '.pdf';
+            $file   = $model->carrier->carrier_code.'_'.$model->flight_no.'_'.$month->format('md') .'_'. Str::random(4);
             $file = $model->sanitize($file);
-            $model->pdf = $file;
+            $model->pdf = $file . '.pdf';
             $cc = Counter::firstOrCreate([
                 'month' => $month->month,
                 'year' => $month->year,
@@ -48,9 +48,9 @@ class Flight extends Model
         self::retrieved(function ($model) {
             if($model->pdf == null){
                 $month = Carbon::parse($model->flight_date);
-              $file  = $model->carrier->carrier_code.'_'.$model->flight_no.'_'.$month->format('md') .'_'. Str::random(4) . '.pdf';
+              $file  = $model->carrier->carrier_code.'_'.$model->flight_no.'_'.$month->format('md') .'_'. Str::random(4);
                 $file = $model->sanitize($file);
-                $model->pdf = $file;
+                $model->pdf = $file . '.pdf';
 
                 $model->save();
             }
@@ -58,7 +58,7 @@ class Flight extends Model
         });
     }
     public function sanitize($string, $force_lowercase = true, $anal = false) {
-        $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
+        $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "=", "+", "[", "{", "]",
                        "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
                        "â€”", "â€“", ",", "<", ".", ">", "/", "?");
         $clean = trim(str_replace($strip, "", strip_tags($string)));
