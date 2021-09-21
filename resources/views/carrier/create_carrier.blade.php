@@ -91,7 +91,7 @@
     </div>
 
     </form>
-    @livewire('carrier.carrier-services',['carrier_id'=>$carrier->id])
+
 @endsection
 
 @section('secondary-content')
