@@ -65,6 +65,13 @@ class CarrierServices extends Component
             'handling_service' => $this->handling_service,
             'free_hrs' => $this->free_hrs,
         ));
+        $this->service_id = null;
+        $this->aircraft_type = null;
+        $this->flight_type = null;
+        $this->charge = null;
+        $this->service_type = null;
+        $this->handling_service = null;
+        $this->free_hrs = null;
     }
     public function deleteQuestion($id)
     {

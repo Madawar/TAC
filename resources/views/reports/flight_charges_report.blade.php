@@ -28,9 +28,9 @@
                     {{ $flight->flight_no }} {{ $flight->aircraft_registration }}
                     {{ Carbon\Carbon::parse($flight->flight_date)->format('y.m.d') }} ({{ $flight->aircraft_type }})
                 </td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>1</td>
+                <td>{{$flight->turnaround_charge}}</td>
+                <td>{{$flight->turnaround_charge}}</td>
             </tr>
             @foreach ($flight->services as $service)
                 <tr>
@@ -40,10 +40,15 @@
                     <td>Incidental Charge For {{ $flight->carrier->carrier_code }}{{ $flight->flight_no }}
                         {{ $flight->aircraft_registration }}
                         {{ Carbon\Carbon::parse($flight->flight_date)->format('y.m.d') }} -
-                        {{ $service->service }} </td>
+                        {{ $service->service }}
+                            @if ($service->start_time != null and $service->end_time != null)
+                              <b>/</b>  <i>{{$service->start_time}} to {{$service->end_time}}</i>
+                            @endif
+
+                        </td>
                     <td>{{ $service->qty }}</td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ $service->service_charge}}</td>
+                    <td>{{$service->qty*$service->service_charge}}</td>
                 </tr>
             @endforeach
         @endforeach
