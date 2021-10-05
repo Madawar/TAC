@@ -53,18 +53,38 @@ class CarrierServices extends Component
     public function save()
     {
         $this->validate();
-        ModelsCarrierServices::create(array(
-            'carrier_id' => $this->carrier_id,
-            'service_id' => $this->service_id,
-            'aircraft_type' => $this->aircraft_type,
-            'flight_type' => $this->flight_type,
-            'charge' => $this->charge,
-            'free_hrs' => $this->free_hrs,
-            'service_type' => $this->charge,
-            'service_type' => $this->service_type,
-            'handling_service' => $this->handling_service,
-            'free_hrs' => $this->free_hrs,
-        ));
+        if($this->aircraft_type == '*ALL*'){
+            $aircrafts = Config::get('tac.aircraft_types');
+            array_shift($aircrafts);
+            foreach($aircrafts as $aircraft){
+                ModelsCarrierServices::create(array(
+                    'carrier_id' => $this->carrier_id,
+                    'service_id' => $this->service_id,
+                    'aircraft_type' => $aircraft,
+                    'flight_type' => $this->flight_type,
+                    'charge' => $this->charge,
+                    'free_hrs' => $this->free_hrs,
+                    'service_type' => $this->charge,
+                    'service_type' => $this->service_type,
+                    'handling_service' => $this->handling_service,
+                    'free_hrs' => $this->free_hrs,
+                ));
+            }
+        }else{
+            ModelsCarrierServices::create(array(
+                'carrier_id' => $this->carrier_id,
+                'service_id' => $this->service_id,
+                'aircraft_type' => $this->aircraft_type,
+                'flight_type' => $this->flight_type,
+                'charge' => $this->charge,
+                'free_hrs' => $this->free_hrs,
+                'service_type' => $this->charge,
+                'service_type' => $this->service_type,
+                'handling_service' => $this->handling_service,
+                'free_hrs' => $this->free_hrs,
+            ));
+        }
+
         $this->service_id = null;
         $this->aircraft_type = null;
         $this->flight_type = null;
