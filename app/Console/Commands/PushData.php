@@ -42,7 +42,7 @@ class PushData extends Command
     {
 
         $this->info('Clearing Interface Table');
-        DB::connection('sqlsrv')->table('RMP_FLIGHT')->where('flightDate', '>=', Carbon::today()->subMonth()->startOfMonth())->where('flightDate', '<=', Carbon::today()->subMonth()->endOfMonth())->delete();
+        DB::connection('sqlsrv')->table('RMP_FLIGHT')->where('carrier',1)->where('flightDate', '>=', Carbon::today()->subMonth()->startOfMonth())->where('flightDate', '<=', Carbon::today()->subMonth()->endOfMonth())->delete();
         $this->info('Starting Import');
         $flights = $this->withProgressBar(Flight::with('services')->where('flight_date', '>=', Carbon::today()->subMonth()->startOfMonth())->where('flight_date', '<=', Carbon::today()->subMonth()->endOfMonth())->get(), function ($flight) {
             $this->info(' Flight' . ' ' . $flight->carrier->carrier_name . ' on ' . $flight->flight_date);
