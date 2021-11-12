@@ -12,6 +12,10 @@
             <th>Flight Type</th>
             <th>Aircraft Registration</th>
             <th>Airline Representative</th>
+            <th>STA</th>
+            <th>STD</th>
+            <th>Arrival</th>
+            <th>Departure</th>
             <th>Done By</th>
             <th>Actions</th>
 
@@ -45,6 +49,10 @@
                 </td>
                 <td>{{ $flight->aircraft_registration }} </td>
                 <td>{{ $flight->signature_name }} </td>
+                <td>{{ $flight->STA }} </td>
+                <td>{{ $flight->STD }} </td>
+                <td>{{ $flight->arrival }} </td>
+                <td>{{ $flight->departure }} </td>
                 <td>
                     @if (isset($flight->owner->name))
                         {{ $flight->owner->name }}
